@@ -48,7 +48,10 @@
     display: flex; align-items: center;
     text-decoration: none; flex-shrink: 0;
   }
-  .nav-logo img { height: 44px; width: auto; display: block; }
+  .nav-logo img {
+    height: 44px; width: auto; display: block;
+    mix-blend-mode: multiply;
+  }
   .nav-links {
     display: flex; gap: 28px; list-style: none;
   }
@@ -185,11 +188,12 @@
     margin-bottom: 20px; letter-spacing: 0.05em;
   }
   .hero-logo {
-    width: 200px; height: auto;
+    width: 220px; height: auto;
     margin-bottom: 28px; display: block;
+    mix-blend-mode: multiply;
   }
-  @media (max-width: 768px) { .hero-logo { width: 160px; } }
-  @media (max-width: 480px) { .hero-logo { width: 130px; } }
+  @media (max-width: 768px) { .hero-logo { width: 170px; } }
+  @media (max-width: 480px) { .hero-logo { width: 140px; } }
 
   .hero-eyebrow-dot { width: 7px; height: 7px; background: var(--blue); border-radius: 50%; flex-shrink: 0; }
   .hero-heading {
@@ -570,8 +574,7 @@
   /* ── Small mobile (≤480px) ── */
   @media (max-width: 480px) {
     nav { padding: 0 14px; }
-    .nav-logo { font-size: 17px; }
-    .nav-logo-wings { width: 24px; height: 24px; }
+    .nav-logo img { height: 36px; }
     .lang-btn { font-size: 11px; padding: 4px 8px; }
 
     .hero-heading { font-size: 26px; }
