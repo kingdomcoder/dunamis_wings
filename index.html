@@ -45,19 +45,10 @@
     padding: 0 40px; height: 64px;
   }
   .nav-logo {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 800; font-size: 20px;
-    color: var(--blue);
-    display: flex; align-items: center; gap: 8px;
+    display: flex; align-items: center;
     text-decoration: none; flex-shrink: 0;
   }
-  .nav-logo span { color: var(--text); }
-  .nav-logo-wings {
-    width: 28px; height: 28px;
-    background: linear-gradient(135deg, var(--blue), var(--green));
-    border-radius: 50% 50% 50% 10%;
-    display: inline-block;
-  }
+  .nav-logo img { height: 44px; width: auto; display: block; }
   .nav-links {
     display: flex; gap: 28px; list-style: none;
   }
@@ -193,6 +184,13 @@
     padding: 5px 16px; font-size: 12px; font-weight: 700;
     margin-bottom: 20px; letter-spacing: 0.05em;
   }
+  .hero-logo {
+    width: 200px; height: auto;
+    margin-bottom: 28px; display: block;
+  }
+  @media (max-width: 768px) { .hero-logo { width: 160px; } }
+  @media (max-width: 480px) { .hero-logo { width: 130px; } }
+
   .hero-eyebrow-dot { width: 7px; height: 7px; background: var(--blue); border-radius: 50%; flex-shrink: 0; }
   .hero-heading {
     font-size: 48px; font-weight: 900; line-height: 1.25;
@@ -624,8 +622,7 @@
 <!-- ── NAV ── -->
 <nav>
   <a class="nav-logo" href="#">
-    <span class="nav-logo-wings"></span>
-    Dunamis <span>Wings</span>
+    <img src="uploads/DunamisWingsLogo.jpg" alt="Dunamis Wings">
   </a>
   <ul class="nav-links">
     <li><a href="#about" data-i18n="nav-about">私たちについて</a></li>
@@ -668,6 +665,7 @@
 
   <div class="hero-inner">
     <div class="hero-text">
+      <img src="uploads/DunamisWingsLogo.jpg" alt="Dunamis Wings" class="hero-logo">
       <div class="hero-eyebrow">
         <span class="hero-eyebrow-dot"></span>
         <span data-i18n="hero-eyebrow">高校生・大学生のためのキリスト教コミュニティ</span>
