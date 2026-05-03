@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dunamis Wings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #4A8ED6;
+    --blue-light: #D6E8FA;
+    --blue-pale: #EEF5FD;
+    --green: #52BF8A;
+    --green-light: #D4F2E5;
+    --yellow: #F5C842;
+    --yellow-light: #FEF5D0;
+    --bg: #F8FAFF;
+    --text: #1A2033;
+    --text-mid: #4A5168;
+    --text-soft: #7C84A0;
+    --white: #FFFFFF;
+    --radius: 20px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(248,250,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(74,142,214,0.1);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800; font-size: 20px;
+    color: var(--blue);
+    display: flex; align-items: center; gap: 8px;
+    text-decoration: none; flex-shrink: 0;
+  }
+  .nav-logo span { color: var(--text); }
+  .nav-logo-wings {
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--blue), var(--green));
+    border-radius: 50% 50% 50% 10%;
+    display: inline-block;
+  }
+  .nav-links {
+    display: flex; gap: 28px; list-style: none;
+  }
+  .nav-links a {
+    font-size: 13.5px; color: var(--text-mid);
+    text-decoration: none; font-weight: 500;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+
+  /* ── LANG TOGGLE ── */
+  .lang-toggle {
+    display: flex; align-items: center; gap: 2px;
+    background: var(--blue-pale); border-radius: 50px;
+    padding: 4px; margin-right: 12px;
+    border: 1px solid var(--blue-light);
+    flex-shrink: 0;
+  }
+  .lang-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 12.5px; font-weight: 700; color: var(--text-soft);
+    padding: 5px 12px; border-radius: 50px;
+    transition: color .15s, background .15s;
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1;
+  }
+  .lang-btn.active { color: #fff; background: var(--blue); }
+  .lang-btn:hover:not(.active) { color: var(--blue); }
+
+  .nav-cta {
+    background: var(--blue); color: #fff;
+    border: none; border-radius: 50px;
+    padding: 10px 24px; font-size: 13.5px; font-weight: 700;
+    cursor: pointer; font-family: 'Noto Sans JP', sans-serif;
+    transition: background .2s, transform .15s;
+    text-decoration: none; display: inline-block; flex-shrink: 0;
+  }
+  .nav-cta:hover { background: #3577c0; transform: translateY(-1px); }
+
+  /* ── HAMBURGER ── */
+  .nav-hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer;
+    padding: 8px; margin-left: 4px;
+  }
+  .nav-hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--text); border-radius: 2px;
+    transition: transform .3s, opacity .3s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── MOBILE NAV ── */
+  .mobile-nav {
+    display: none;
+    position: fixed; top: 64px; left: 0; right: 0; z-index: 99;
+    background: rgba(248,250,255,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(74,142,214,0.1);
+    padding: 8px 24px 28px;
+    flex-direction: column;
+    box-shadow: 0 8px 24px rgba(74,142,214,0.1);
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    display: block; padding: 15px 0;
+    font-size: 16px; font-weight: 600; color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(74,142,214,0.08);
+    transition: color .15s;
+  }
+  .mobile-nav a:hover { color: var(--blue); }
+  .mobile-nav-cta {
+    margin-top: 20px;
+    display: block; text-align: center;
+    background: var(--blue); color: #fff !important;
+    border-radius: 50px; padding: 15px 24px;
+    font-size: 15px; font-weight: 700;
+    border-bottom: none !important;
+  }
+  .mobile-nav-cta:hover { background: #3577c0 !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    padding: 100px 40px 60px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg-blob1 {
+    position: absolute; top: -80px; right: -60px;
+    width: 500px; height: 500px;
+    background: linear-gradient(145deg, #c8dff9 0%, #d6f0e6 100%);
+    opacity: 0.5; clip-path: url(#blob-bg1); pointer-events: none;
+  }
+  .hero-bg-blob2 {
+    position: absolute; bottom: 40px; left: -80px;
+    width: 380px; height: 380px;
+    background: linear-gradient(145deg, #fef5d0 0%, #d6f0e6 100%);
+    opacity: 0.6; clip-path: url(#blob-bg2); pointer-events: none;
+  }
+  .hero-deco-star1 { position: absolute; top: 120px; left: 42%; font-size: 24px; color: var(--yellow); opacity: 0.9; animation: float 3s ease-in-out infinite; }
+  .hero-deco-star2 { position: absolute; top: 200px; right: 38%; font-size: 16px; color: var(--blue); opacity: 0.7; animation: float 4s ease-in-out infinite reverse; }
+  .hero-deco-plus  { position: absolute; bottom: 180px; left: 46%; color: var(--green); font-size: 22px; opacity: 0.7; animation: float 3.5s ease-in-out infinite; }
+  .hero-deco-dot-grid {
+    position: absolute; bottom: 60px; right: 60px;
+    width: 80px; height: 80px;
+    background-image: radial-gradient(circle, var(--blue) 1.5px, transparent 1.5px);
+    background-size: 12px 12px; opacity: 0.25;
+  }
+  .hero-deco-dot-grid2 {
+    position: absolute; top: 140px; left: 30px;
+    width: 60px; height: 60px;
+    background-image: radial-gradient(circle, var(--green) 1.5px, transparent 1.5px);
+    background-size: 12px 12px; opacity: 0.3;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .hero-inner {
+    display: grid; grid-template-columns: 1fr 2.5fr;
+    gap: 60px; align-items: start;
+    max-width: 1600px; width: 100%;
+    position: relative; z-index: 1;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--blue-pale); border: 1px solid var(--blue-light);
+    color: var(--blue); border-radius: 50px;
+    padding: 5px 16px; font-size: 12px; font-weight: 700;
+    margin-bottom: 20px; letter-spacing: 0.05em;
+  }
+  .hero-eyebrow-dot { width: 7px; height: 7px; background: var(--blue); border-radius: 50%; flex-shrink: 0; }
+  .hero-heading {
+    font-size: 48px; font-weight: 900; line-height: 1.25;
+    letter-spacing: -0.02em; margin-bottom: 20px;
+  }
+  .hero-heading em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--blue), var(--green));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 15px; color: var(--text-mid); margin-bottom: 36px; line-height: 1.8;
+  }
+  .hero-sub .underline-accent {
+    text-decoration: underline; text-decoration-color: var(--yellow);
+    text-decoration-thickness: 2.5px; text-underline-offset: 3px;
+  }
+  .hero-btns { display: flex; flex-direction: column; gap: 12px; max-width: 380px; }
+  .hero-btn {
+    display: flex; align-items: center; gap: 12px;
+    border-radius: 16px; padding: 16px 22px;
+    font-size: 14.5px; font-weight: 700; cursor: pointer;
+    text-decoration: none; transition: transform .15s, box-shadow .15s;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .hero-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+  .hero-btn-icon { font-size: 20px; }
+  .hero-btn-text small { display: block; font-size: 11.5px; font-weight: 400; opacity: 0.75; margin-top: 1px; }
+  .hero-btn.blue { background: var(--blue); color: #fff; }
+  .hero-btn.green { background: var(--green); color: #fff; }
+  .hero-btn.outline { background: #fff; color: var(--text); border: 2px solid var(--yellow); }
+  .hero-btn.outline .hero-btn-icon { color: var(--yellow); }
+
+  /* ── HERO IMAGE ── */
+  .hero-image-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+  .hero-image-container { position: relative; width: 100%; height: 600px; }
+  .hero-img-glow {
+    position: absolute; inset: -30px;
+    background: radial-gradient(ellipse at 55% 45%, rgba(74,142,214,0.18) 0%, rgba(82,191,138,0.12) 60%, transparent 80%);
+    border-radius: 50%; pointer-events: none;
+  }
+  .hero-img-blob-frame {
+    width: 100%; height: 100%; overflow: hidden;
+    clip-path: url(#hero-blob); position: relative; cursor: pointer;
+  }
+  .hero-img-blob-frame img { transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  .hero-img-blob-frame:hover img { transform: scale(1.06) translate(5px, -4px); }
+  .blob-hover-frame { position: absolute; inset: 0; overflow: hidden; cursor: pointer; }
+  .blob-hover-frame img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .blob-hover-frame:hover img { transform: scale(1.06) translate(4px, -5px); }
+  .hero-img-blob-deco1 {
+    position: absolute; top: -20px; left: -30px;
+    width: 90px; height: 75px;
+    background: linear-gradient(135deg, #b8d8f8, #c8eedc);
+    clip-path: url(#deco-blob1); opacity: 0.7;
+  }
+  .hero-img-blob-deco2 {
+    position: absolute; bottom: 30px; right: -40px;
+    width: 70px; height: 60px;
+    background: linear-gradient(135deg, #fef0c0, #d4eeb8);
+    clip-path: url(#deco-blob2); opacity: 0.85;
+  }
+  .hero-img-sparkle1 { position: absolute; top: 10px; right: 10px; }
+  .hero-img-sparkle2 { position: absolute; bottom: 60px; left: -10px; }
+  .hero-img-sparkle3 { position: absolute; top: 50%; right: -30px; }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 80px 40px; }
+  .section-inner { max-width: 1120px; margin: 0 auto; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 10px;
+  }
+  .section-label::before {
+    content: ''; display: block; width: 20px; height: 2px;
+    background: var(--blue); border-radius: 2px;
+  }
+  .section-title { font-size: 32px; font-weight: 900; letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.3; }
+  .section-title-en {
+    font-family: 'Outfit', sans-serif; font-size: 60px; font-weight: 800;
+    color: rgba(74,142,214,0.08); letter-spacing: -0.02em;
+    line-height: 1; margin-bottom: -10px; display: block;
+  }
+  .section-sub { font-size: 14px; color: var(--text-soft); margin-bottom: 48px; }
+
+  /* ── ABOUT ── */
+  .about { background: #fff; }
+  .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .about-items { display: flex; flex-direction: column; gap: 32px; margin-top: 32px; }
+  .about-item { display: flex; gap: 20px; align-items: flex-start; }
+  .about-item-icon {
+    width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 22px;
+  }
+  .about-item-icon.blue { background: var(--blue-pale); }
+  .about-item-icon.green { background: var(--green-light); }
+  .about-item-icon.yellow { background: var(--yellow-light); }
+  .about-item-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .about-item-body { font-size: 13.5px; color: var(--text-mid); line-height: 1.75; }
+  .about-image-wrap { position: relative; }
+  .about-en-watermark {
+    position: absolute; top: 0; right: 0;
+    font-family: 'Outfit', sans-serif; font-size: 72px; font-weight: 800;
+    color: rgba(74,142,214,0.06); line-height: 1; pointer-events: none;
+  }
+  .about-deco-blob {
+    position: absolute; bottom: -20px; left: -20px;
+    width: 120px; height: 100px;
+    background: linear-gradient(135deg, var(--yellow-light), var(--green-light));
+    clip-path: url(#deco-blob3); opacity: 0.7;
+  }
+  .about-deco-dot {
+    position: absolute; top: 20px; right: -10px; width: 60px; height: 60px;
+    background-image: radial-gradient(circle, var(--green) 1.5px, transparent 1.5px);
+    background-size: 10px 10px; opacity: 0.3;
+  }
+
+  /* ── ACTIVITIES ── */
+  .activities { background: var(--bg); }
+  .activities-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 16px; }
+  .activity-card {
+    background: #fff; border-radius: 24px; overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 2px 12px rgba(74,142,214,0.06);
+  }
+  .activity-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(74,142,214,0.14); }
+  .activity-card-img { width: 100%; height: 200px; position: relative; }
+  .activity-tag {
+    position: absolute; top: 14px; left: 14px;
+    border-radius: 50px; padding: 4px 12px;
+    font-size: 11.5px; font-weight: 700; color: #fff; z-index: 1;
+  }
+  .activity-tag.blue { background: var(--blue); }
+  .activity-tag.green { background: var(--green); }
+  .activity-tag.yellow { background: var(--yellow); color: var(--text); }
+  .activity-card-body { padding: 24px; }
+  .activity-card-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .activity-card-desc { font-size: 13px; color: var(--text-mid); line-height: 1.75; margin-bottom: 14px; }
+  .activity-card-meta { font-size: 12px; color: var(--text-soft); display: flex; flex-direction: column; gap: 4px; }
+  .activity-card-meta span { display: flex; align-items: center; gap: 6px; }
+  .meta-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .meta-dot.blue { background: var(--blue); }
+  .meta-dot.green { background: var(--green); }
+  .meta-dot.yellow { background: var(--yellow); }
+
+  /* ── STORIES ── */
+  .stories { background: #fff; }
+  .stories-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
+  .more-link { font-size: 13.5px; color: var(--blue); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .more-link:hover { opacity: 0.75; }
+  .stories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .story-card {
+    background: var(--bg); border-radius: 20px; padding: 24px;
+    position: relative; overflow: hidden; transition: transform .2s;
+  }
+  .story-card:hover { transform: translateY(-3px); }
+  .story-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    border-radius: 20px 20px 0 0;
+  }
+  .story-card:nth-child(1)::before { background: var(--blue); }
+  .story-card:nth-child(2)::before { background: var(--green); }
+  .story-card:nth-child(3)::before { background: var(--yellow); }
+  .story-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    margin-bottom: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px;
+  }
+  .story-avatar.blue { background: var(--blue-pale); }
+  .story-avatar.green { background: var(--green-light); }
+  .story-avatar.yellow { background: var(--yellow-light); }
+  .story-name { font-size: 13px; font-weight: 700; color: var(--text-soft); margin-bottom: 10px; }
+  .story-quote { font-size: 15px; font-weight: 700; line-height: 1.6; margin-bottom: 12px; color: var(--text); }
+  .story-quote::before { content: '「'; color: var(--blue); }
+  .story-quote::after  { content: '」'; color: var(--blue); }
+  html[lang="en"] .story-quote::before { content: '\201C'; }
+  html[lang="en"] .story-quote::after  { content: '\201D'; }
+  .story-body { font-size: 13px; color: var(--text-mid); line-height: 1.75; }
+
+  /* ── SUPPORT ── */
+  .support {
+    background: linear-gradient(160deg, #EEF5FD 0%, #F0FAF5 100%);
+    position: relative; overflow: hidden;
+  }
+  .support-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .support-items { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+  .support-item {
+    background: #fff; border-radius: 16px; padding: 20px;
+    box-shadow: 0 2px 10px rgba(74,142,214,0.07);
+  }
+  .support-item-icon { font-size: 24px; margin-bottom: 8px; }
+  .support-item-title { font-size: 13.5px; font-weight: 700; margin-bottom: 4px; }
+  .support-item-body { font-size: 12px; color: var(--text-soft); line-height: 1.6; }
+  .support-notice {
+    background: #fff; border-radius: 20px; padding: 28px; margin-top: 32px;
+    border-left: 4px solid var(--blue);
+  }
+  .support-notice-title { font-size: 14px; font-weight: 700; color: var(--blue); margin-bottom: 8px; }
+  .support-notice-body { font-size: 13px; color: var(--text-mid); line-height: 1.75; }
+  .support-notice-btn {
+    display: inline-block; margin-top: 16px;
+    background: var(--blue); color: #fff;
+    border-radius: 50px; padding: 10px 24px;
+    font-size: 13px; font-weight: 700; text-decoration: none; transition: background .2s;
+  }
+  .support-notice-btn:hover { background: #3577c0; }
+  .donate-btn {
+    display: inline-flex; align-items: center; gap: 10px; margin-top: 20px;
+    background: linear-gradient(135deg, var(--yellow), #f0a800);
+    color: var(--text); border-radius: 50px; padding: 14px 32px;
+    font-size: 15px; font-weight: 800; text-decoration: none;
+    font-family: 'Noto Sans JP', sans-serif;
+    box-shadow: 0 4px 18px rgba(245,200,66,0.45);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .donate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,200,66,0.55); }
+  .support-deco {
+    position: absolute; right: 60px; top: 60px; opacity: 0.12;
+    font-family: 'Outfit', sans-serif; font-size: 120px; font-weight: 800;
+    color: var(--blue); line-height: 1; pointer-events: none;
+  }
+  .support-img-side { position: relative; }
+
+  /* ── CONTACT + FAQ ── */
+  .contact-faq { background: var(--bg); }
+  .contact-faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .contact-title { font-size: 24px; font-weight: 800; margin-bottom: 24px; }
+  .contact-methods { display: flex; flex-direction: column; gap: 14px; }
+  .contact-method {
+    display: flex; align-items: center; gap: 16px;
+    background: #fff; border-radius: 16px; padding: 18px 22px;
+    text-decoration: none; color: var(--text);
+    transition: transform .15s, box-shadow .15s;
+    box-shadow: 0 2px 8px rgba(74,142,214,0.06);
+  }
+  .contact-method:hover { transform: translateX(4px); box-shadow: 0 6px 18px rgba(74,142,214,0.12); }
+  .contact-method-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+  }
+  .contact-method-icon.line { background: #00B900; }
+  .contact-method-icon.mail { background: var(--blue); }
+  .contact-method-icon.form { background: var(--green); }
+  .contact-method-label { font-size: 14px; font-weight: 700; }
+  .contact-method-sub { font-size: 12px; color: var(--text-soft); margin-top: 2px; }
+  .faq-title { font-size: 24px; font-weight: 800; margin-bottom: 24px; }
+  .faq-items { display: flex; flex-direction: column; gap: 10px; }
+  .faq-item { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 8px rgba(74,142,214,0.05); }
+  .faq-q {
+    padding: 16px 20px; font-size: 13.5px; font-weight: 700;
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; gap: 12px;
+  }
+  .faq-q::before { content: 'Q.'; color: var(--blue); font-family: 'Outfit', sans-serif; flex-shrink: 0; }
+  .faq-q::after { content: '+'; color: var(--text-soft); font-size: 18px; flex-shrink: 0; transition: transform .2s; }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a {
+    padding: 0 20px; font-size: 13px; color: var(--text-mid); line-height: 1.75;
+    max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s;
+  }
+  .faq-item.open .faq-a { max-height: 200px; padding: 0 20px 16px; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--text); color: #c8d0e0; padding: 48px 40px 32px; }
+  .footer-inner { max-width: 1120px; margin: 0 auto; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; }
+  .footer-logo { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 20px; color: #fff; margin-bottom: 8px; }
+  .footer-tagline { font-size: 12.5px; color: #8090a8; line-height: 1.6; max-width: 260px; }
+  .footer-links { display: flex; gap: 60px; }
+  .footer-col-title { font-size: 12px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+  .footer-col a { display: block; font-size: 13px; color: #8090a8; text-decoration: none; margin-bottom: 8px; transition: color .15s; }
+  .footer-col a:hover { color: #c8d0e0; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 12px; color: #5a6880; }
+  .footer-socials { display: flex; gap: 16px; }
+  .footer-social {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+    display: flex; align-items: center; justify-content: center;
+    color: #8090a8; font-size: 16px; text-decoration: none;
+    transition: background .15s, color .15s;
+  }
+  .footer-social:hover { background: var(--blue); color: #fff; }
+
+  .svg-defs { position: absolute; width: 0; height: 0; }
+  .wavy { text-decoration: underline wavy; text-decoration-color: var(--yellow); text-underline-offset: 4px; }
+
+  /* ═══════════════════════════════════
+     RESPONSIVE
+  ═══════════════════════════════════ */
+
+  /* ── Tablet (≤1024px) ── */
+  @media (max-width: 1024px) {
+    nav { padding: 0 24px; }
+    .nav-links { gap: 18px; }
+    .nav-links a { font-size: 12.5px; }
+    .nav-cta { padding: 9px 18px; font-size: 12.5px; }
+
+    .hero { padding: 96px 32px 60px; }
+    .hero-inner { grid-template-columns: 1fr 1.6fr; gap: 40px; }
+    .hero-heading { font-size: 38px; }
+    .hero-image-container { height: 480px; }
+
+    .about-inner { gap: 48px; }
+
+    .activities-grid { grid-template-columns: 1fr 1fr; }
+    .activity-card:last-child { grid-column: 1 / -1; max-width: 480px; margin: 0 auto; width: 100%; }
+
+    .stories-grid { grid-template-columns: 1fr 1fr; }
+    .story-card:last-child { grid-column: 1 / -1; }
+
+    .support-inner { gap: 40px; }
+
+    .section-title { font-size: 28px; }
+  }
+
+  /* ── Mobile (≤768px) ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; }
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .nav-hamburger { display: flex; }
+    .lang-toggle { margin-right: 4px; }
+    .lang-btn { font-size: 11.5px; padding: 4px 10px; }
+
+    section { padding: 56px 20px; }
+
+    /* Hero */
+    .hero { padding: 88px 20px 48px; min-height: auto; }
+    .hero-inner { grid-template-columns: 1fr; gap: 36px; }
+    .hero-heading { font-size: 32px; }
+    .hero-sub { font-size: 14px; }
+    .hero-btns { max-width: 100%; }
+    .hero-image-container { height: 300px; }
+    .hero-img-blob-deco1, .hero-img-blob-deco2 { display: none; }
+    .hero-bg-blob1, .hero-bg-blob2 { display: none; }
+    .hero-deco-star1, .hero-deco-star2, .hero-deco-plus { display: none; }
+
+    /* About */
+    .about-inner { grid-template-columns: 1fr; gap: 36px; }
+    .about-inner > div:first-child { order: 1; }
+    .about-image-wrap { order: 2; }
+
+    /* Activities */
+    .activities-grid { grid-template-columns: 1fr; }
+    .activity-card:last-child { grid-column: auto; max-width: 100%; }
+
+    /* Stories */
+    .stories-grid { grid-template-columns: 1fr; }
+    .story-card:last-child { grid-column: auto; }
+    .stories-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+
+    /* Support */
+    .support-inner { grid-template-columns: 1fr; }
+    .support-img-side { display: none; }
+    .support-deco { font-size: 72px; top: 16px; right: 16px; }
+
+    /* Contact/FAQ */
+    .contact-faq-grid { grid-template-columns: 1fr; gap: 40px; }
+
+    /* Footer */
+    footer { padding: 40px 20px 24px; }
+    .footer-top { flex-direction: column; gap: 28px; }
+    .footer-links { gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+
+    /* Section text */
+    .section-title { font-size: 24px; }
+    .section-title-en { font-size: 42px; }
+  }
+
+  /* ── Small mobile (≤480px) ── */
+  @media (max-width: 480px) {
+    nav { padding: 0 14px; }
+    .nav-logo { font-size: 17px; }
+    .nav-logo-wings { width: 24px; height: 24px; }
+    .lang-btn { font-size: 11px; padding: 4px 8px; }
+
+    .hero-heading { font-size: 26px; }
+    .hero-eyebrow { font-size: 11px; }
+    .hero-btn { padding: 13px 16px; font-size: 13px; }
+    .hero-image-container { height: 260px; }
+
+    .support-items { grid-template-columns: 1fr; }
+    .footer-links { flex-direction: column; gap: 24px; }
+
+    .section-title { font-size: 21px; }
+    .faq-q { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG Defs -->
+<svg class="svg-defs" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="hero-blob" clipPathUnits="objectBoundingBox">
+      <path d="M0.82,0.09 C0.94,0.19 1.00,0.36 0.97,0.54 C0.94,0.72 0.81,0.87 0.66,0.94 C0.50,1.01 0.31,1.00 0.17,0.90 C0.03,0.80 -0.03,0.62 0.01,0.44 C0.05,0.26 0.20,0.10 0.37,0.03 C0.54,-0.04 0.70,-0.01 0.82,0.09 Z"/>
+    </clipPath>
+    <clipPath id="about-blob" clipPathUnits="objectBoundingBox">
+      <path d="M0.15,0.06 C0.30,-0.04 0.52,-0.01 0.70,0.08 C0.88,0.18 1.01,0.36 0.98,0.55 C0.95,0.74 0.78,0.90 0.60,0.97 C0.42,1.04 0.22,1.00 0.09,0.87 C-0.04,0.74 -0.01,0.56 0.05,0.39 C0.11,0.22 0.00,0.16 0.15,0.06 Z"/>
+    </clipPath>
+    <clipPath id="support-blob" clipPathUnits="objectBoundingBox">
+      <path d="M0.78,0.08 C0.92,0.20 1.00,0.38 0.96,0.56 C0.92,0.74 0.78,0.88 0.62,0.95 C0.46,1.02 0.27,0.99 0.13,0.88 C-0.01,0.77 -0.04,0.58 0.03,0.41 C0.10,0.24 0.26,0.10 0.44,0.04 C0.62,-0.02 0.64,-0.04 0.78,0.08 Z"/>
+    </clipPath>
+    <clipPath id="blob-bg1" clipPathUnits="objectBoundingBox">
+      <path d="M0.80,0.05 C0.96,0.17 1.02,0.40 0.97,0.60 C0.92,0.80 0.76,0.96 0.58,0.99 C0.40,1.02 0.20,0.92 0.08,0.76 C-0.04,0.60 -0.02,0.38 0.08,0.20 C0.18,0.02 0.38,-0.06 0.57,0.04 C0.66,0.09 0.70,-0.04 0.80,0.05 Z"/>
+    </clipPath>
+    <clipPath id="blob-bg2" clipPathUnits="objectBoundingBox">
+      <path d="M0.82,0.12 C0.96,0.26 1.00,0.48 0.93,0.67 C0.86,0.86 0.68,0.98 0.49,0.99 C0.30,1.00 0.10,0.89 0.03,0.72 C-0.04,0.55 0.04,0.33 0.16,0.18 C0.28,0.03 0.48,-0.03 0.64,0.04 C0.72,0.07 0.72,0.02 0.82,0.12 Z"/>
+    </clipPath>
+    <clipPath id="deco-blob1" clipPathUnits="objectBoundingBox">
+      <path d="M0.78,0.06 C0.95,0.20 1.02,0.46 0.90,0.66 C0.78,0.86 0.52,0.96 0.30,0.90 C0.08,0.84 -0.04,0.62 0.04,0.40 C0.12,0.18 0.38,0.04 0.60,0.02 C0.70,0.01 0.66,-0.06 0.78,0.06 Z"/>
+    </clipPath>
+    <clipPath id="deco-blob2" clipPathUnits="objectBoundingBox">
+      <path d="M0.70,0.08 C0.90,0.22 0.98,0.50 0.86,0.72 C0.74,0.94 0.44,1.02 0.22,0.90 C0.00,0.78 -0.04,0.50 0.10,0.28 C0.24,0.06 0.50,-0.06 0.70,0.08 Z"/>
+    </clipPath>
+    <clipPath id="deco-blob3" clipPathUnits="objectBoundingBox">
+      <path d="M0.82,0.10 C0.96,0.24 1.00,0.50 0.88,0.70 C0.76,0.90 0.48,0.98 0.26,0.88 C0.04,0.78 -0.04,0.52 0.08,0.30 C0.20,0.08 0.48,-0.04 0.68,0.04 C0.76,0.07 0.72,0.00 0.82,0.10 Z"/>
+    </clipPath>
+  </defs>
+</svg>
+
+<!-- ── NAV ── -->
+<nav>
+  <a class="nav-logo" href="#">
+    <span class="nav-logo-wings"></span>
+    Dunamis <span>Wings</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about" data-i18n="nav-about">私たちについて</a></li>
+    <li><a href="#activities" data-i18n="nav-activities">活動内容</a></li>
+    <li><a href="#stories" data-i18n="nav-stories">ストーリー</a></li>
+    <li><a href="#support" data-i18n="nav-support">サポート</a></li>
+    <li><a href="#contact" data-i18n="nav-contact">お問い合わせ</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:0;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-ja" onclick="setLang('ja')">日本語</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a class="nav-cta" href="#contact" data-i18n="nav-cta">✦ コミュニティに参加する</a>
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── MOBILE NAV ── -->
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#about" data-i18n="mobile-nav-about" onclick="closeMenu()">私たちについて</a>
+  <a href="#activities" data-i18n="mobile-nav-activities" onclick="closeMenu()">活動内容</a>
+  <a href="#stories" data-i18n="mobile-nav-stories" onclick="closeMenu()">ストーリー</a>
+  <a href="#support" data-i18n="mobile-nav-support" onclick="closeMenu()">サポート</a>
+  <a href="#contact" data-i18n="mobile-nav-contact" onclick="closeMenu()">お問い合わせ</a>
+  <a href="#contact" class="mobile-nav-cta" data-i18n="nav-cta" onclick="closeMenu()">✦ コミュニティに参加する</a>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg-blob1"></div>
+  <div class="hero-bg-blob2"></div>
+  <div class="hero-deco-star1">✦</div>
+  <div class="hero-deco-star2">✦</div>
+  <div class="hero-deco-plus">＋</div>
+  <div class="hero-deco-dot-grid"></div>
+  <div class="hero-deco-dot-grid2"></div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        <span data-i18n="hero-eyebrow">高校生・大学生のためのキリスト教コミュニティ</span>
+      </div>
+      <h1 class="hero-heading" data-i18n="hero-heading">あなたの<em>翼</em>を、<br>ここから広げよう。</h1>
+      <p class="hero-sub" data-i18n="hero-sub">Dunamis Wingsは、若い世代が<span class="underline-accent">信仰と共に</span>自分らしく生き、<br>力強く羽ばたくことを応援するコミュニティです。</p>
+      <div class="hero-btns">
+        <a class="hero-btn blue" href="#contact">
+          <span class="hero-btn-icon">🕊️</span>
+          <span class="hero-btn-text">
+            <span data-i18n="hero-btn1-main">集会に参加する</span>
+            <small data-i18n="hero-btn1-sub">まずは見てみるだけでもOK！</small>
+          </span>
+        </a>
+        <a class="hero-btn green" href="#contact">
+          <span class="hero-btn-icon">💬</span>
+          <span class="hero-btn-text">
+            <span data-i18n="hero-btn2-main">話を聞いてみる</span>
+            <small data-i18n="hero-btn2-sub">気軽に相談できます</small>
+          </span>
+        </a>
+        <a class="hero-btn outline" href="#support">
+          <span class="hero-btn-icon">💛</span>
+          <span class="hero-btn-text">
+            <span data-i18n="hero-btn3-main">活動を支える</span>
+            <small data-i18n="hero-btn3-sub">サポート・献金について</small>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-image-wrap">
+      <div class="hero-image-container">
+        <div class="hero-img-glow"></div>
+        <div class="hero-img-blob-deco1"></div>
+        <div class="hero-img-blob-deco2"></div>
+        <div class="hero-img-sparkle1">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <path d="M14 2 L15.5 12.5 L26 14 L15.5 15.5 L14 26 L12.5 15.5 L2 14 L12.5 12.5 Z" fill="#4A8ED6" opacity="0.8"/>
+          </svg>
+        </div>
+        <div class="hero-img-sparkle2">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M11 1 L12.2 9.8 L21 11 L12.2 12.2 L11 21 L9.8 12.2 L1 11 L9.8 9.8 Z" fill="#52BF8A" opacity="0.8"/>
+          </svg>
+        </div>
+        <div class="hero-img-sparkle3">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 1 L11 9 L19 10 L11 11 L10 19 L9 11 L1 10 L9 9 Z" fill="#F5C842" opacity="0.9"/>
+          </svg>
+        </div>
+        <div class="hero-img-blob-frame">
+          <img src="uploads/top.jpg" alt="Dunamis Wings集会の様子" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-inner">
+      <div>
+        <span class="section-title-en">About Us</span>
+        <div class="section-label" data-i18n="about-label">私たちについて</div>
+        <h2 class="section-title" data-i18n="about-title">Dunamis Wingsって<br>どんなところ？</h2>
+        <p class="section-sub" data-i18n="about-sub">ギリシャ語で「力・能力」を意味する「Dunamis」。<br>信仰の力で、若者が自由に羽ばたける場所をつくっています。</p>
+        <div class="about-items">
+          <div class="about-item">
+            <div class="about-item-icon blue">🌱</div>
+            <div>
+              <div class="about-item-title" data-i18n="about-mission-title">ミッション</div>
+              <div class="about-item-body" data-i18n="about-mission-body">聖書の教えを土台に、若い世代が信仰を育み、人生の使命を見つけることを支援します。</div>
+            </div>
+          </div>
+          <div class="about-item">
+            <div class="about-item-icon green">🦋</div>
+            <div>
+              <div class="about-item-title" data-i18n="about-vision-title">ビジョン</div>
+              <div class="about-item-body" data-i18n="about-vision-body">すべての若者が、神に愛されていることを知り、自分らしく生き、社会へ羽ばたける場所をつくる。</div>
+            </div>
+          </div>
+          <div class="about-item">
+            <div class="about-item-icon yellow">🤝</div>
+            <div>
+              <div class="about-item-title" data-i18n="about-faith-title">信仰の土台</div>
+              <div class="about-item-body" data-i18n="about-faith-body">私たちは聖書を神のことばと信じ、イエス・キリストを救い主として礼拝するコミュニティです。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-image-wrap">
+        <div class="about-en-watermark">Wings</div>
+        <div class="about-deco-dot"></div>
+        <div style="position:relative; width:100%; padding-bottom:110%;">
+          <div class="blob-hover-frame" style="clip-path:url(#about-blob);">
+            <img src="uploads/606002595_10233513129829862_8258941430771671582_n.jpg" alt="バイブルスタディの様子" style="object-position:center;">
+          </div>
+        </div>
+        <div class="about-deco-blob"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ACTIVITIES ── -->
+<section class="activities" id="activities">
+  <div class="section-inner">
+    <div class="section-label" data-i18n="activities-label">活動内容</div>
+    <h2 class="section-title" data-i18n="activities-title">普段どんなことをしているの？</h2>
+    <p class="section-sub" data-i18n="activities-sub">毎週の礼拝から少人数でのバイブルスタディ、季節ごとのイベントまで。</p>
+    <div class="activities-grid">
+      <div class="activity-card">
+        <div class="activity-card-img" style="padding:0;">
+          <span class="activity-tag blue" data-i18n="act1-tag">礼拝</span>
+          <img src="uploads/605773481_10233513123509704_7945310842588665106_n.jpg" alt="礼拝の様子" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+        </div>
+        <div class="activity-card-body">
+          <div class="activity-card-title" data-i18n="act1-title">賛美とメッセージ</div>
+          <div class="activity-card-desc" data-i18n="act1-desc">毎週日曜日、賛美礼拝とメッセージを通して、信仰を一緒に深めています。</div>
+          <div class="activity-card-meta">
+            <span><span class="meta-dot blue"></span><span data-i18n="act1-meta1">毎週日曜日 13:30〜15:00</span></span>
+            <span><span class="meta-dot blue"></span><span data-i18n="act1-meta2">市内キリスト教会ホール</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="activity-card">
+        <div class="activity-card-img" style="padding:0;">
+          <span class="activity-tag green" data-i18n="act2-tag">バイブルスタディ</span>
+          <img src="uploads/605564335_10233513124669733_5113194836603124316_n.jpg" alt="バイブルスタディの様子" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+        </div>
+        <div class="activity-card-body">
+          <div class="activity-card-title" data-i18n="act2-title">少人数の学び</div>
+          <div class="activity-card-desc" data-i18n="act2-desc">少人数グループで聖書を読み、日常のことも話せる安心できる学びの場です。</div>
+          <div class="activity-card-meta">
+            <span><span class="meta-dot green"></span><span data-i18n="act2-meta1">平日・週末（場所によって）</span></span>
+            <span><span class="meta-dot green"></span><span data-i18n="act2-meta2">市内カフェ・各所</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="activity-card">
+        <div class="activity-card-img" style="padding:0;">
+          <span class="activity-tag yellow" data-i18n="act3-tag">イベント</span>
+          <img src="uploads/605956836_10233513124029717_7341634694289804998_n.jpg" alt="イベントの様子" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+        </div>
+        <div class="activity-card-body">
+          <div class="activity-card-title" data-i18n="act3-title">楽しいイベントも！</div>
+          <div class="activity-card-desc" data-i18n="act3-desc">BBQ、クリスマスなど、季節ごとのイベントを楽しく開催しています。</div>
+          <div class="activity-card-meta">
+            <span><span class="meta-dot yellow"></span><span data-i18n="act3-meta1">随時・告知あり</span></span>
+            <span><span class="meta-dot yellow"></span><span data-i18n="act3-meta2">屋外・各施設</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STORIES ── -->
+<section class="stories" id="stories">
+  <div class="section-inner">
+    <div class="stories-header">
+      <div>
+        <div class="section-label" data-i18n="stories-label">ストーリー</div>
+        <h2 class="section-title" data-i18n="stories-title">実際に参加した人の声</h2>
+      </div>
+      <a class="more-link" href="#" data-i18n="stories-more">もっと見る →</a>
+    </div>
+    <div class="stories-grid">
+      <div class="story-card">
+        <div class="story-avatar blue">🙋</div>
+        <div class="story-name" data-i18n="story1-name">大学2年生・あいさん</div>
+        <div class="story-quote" data-i18n="story1-quote">ここに来て、本当の自分を出せるようになりました。</div>
+        <div class="story-body" data-i18n="story1-body">人間関係で悩んでいたころ、なんでも話せる仲間ができて、毎日が楽しくなりました。</div>
+      </div>
+      <div class="story-card">
+        <div class="story-avatar green">🙆</div>
+        <div class="story-name" data-i18n="story2-name">高校3年生・まくん</div>
+        <div class="story-quote" data-i18n="story2-quote">聖書のメッセージが、生き方のセンターになっています。</div>
+        <div class="story-body" data-i18n="story2-body">進路や将来のことで不安だったとき、聖書の言葉が心の支えになりました。</div>
+      </div>
+      <div class="story-card">
+        <div class="story-avatar yellow">👵</div>
+        <div class="story-name" data-i18n="story3-name">お母さん・さんより</div>
+        <div class="story-quote" data-i18n="story3-quote">安心して通わせることができる場所です。</div>
+        <div class="story-body" data-i18n="story3-body">子どもの成長を間近で見て、信頼できるコミュニティだと感じています。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SUPPORT ── -->
+<section class="support" id="support">
+  <div class="support-deco">Give</div>
+  <div class="section-inner">
+    <div class="support-inner">
+      <div>
+        <div class="section-label" data-i18n="support-label">サポートについて</div>
+        <h2 class="section-title" data-i18n="support-title">活動を一緒に<br>支えてください</h2>
+        <p class="section-sub" style="margin-bottom:24px;" data-i18n="support-sub">皆さまのサポートが、若者たちの信仰の旅を支えています。</p>
+        <div class="support-items">
+          <div class="support-item">
+            <div class="support-item-icon">📚</div>
+            <div class="support-item-title" data-i18n="support-item1-title">学生支援活動</div>
+            <div class="support-item-body" data-i18n="support-item1-body">奨学・支援金、学習サポートプログラム</div>
+          </div>
+          <div class="support-item">
+            <div class="support-item-icon">🏠</div>
+            <div class="support-item-title" data-i18n="support-item2-title">会場・運営費</div>
+            <div class="support-item-body" data-i18n="support-item2-body">集会場所の確保とスタッフ活動費</div>
+          </div>
+          <div class="support-item">
+            <div class="support-item-icon">🎪</div>
+            <div class="support-item-title" data-i18n="support-item3-title">イベント・教材</div>
+            <div class="support-item-body" data-i18n="support-item3-body">キャンプ・バイブルなど教材費</div>
+          </div>
+          <div class="support-item">
+            <div class="support-item-icon">🌐</div>
+            <div class="support-item-title" data-i18n="support-item4-title">地域宣教</div>
+            <div class="support-item-body" data-i18n="support-item4-body">地域への福音宣教と新たな輪の拡大</div>
+          </div>
+        </div>
+        <a class="donate-btn" href="https://give.tithe.ly/?formId=7433cce0-79df-4679-b4e5-eae6c9a4fb78" target="_blank" rel="noopener noreferrer" data-i18n="donate-btn">💛 献金する</a>
+        <div class="support-notice">
+          <div class="support-notice-title" data-i18n="support-notice-title">✦ 透明性を大切にしています</div>
+          <div class="support-notice-body" data-i18n="support-notice-body">毎月の活動報告を公開し、皆さまのサポートがどのように使われているかをご確認いただけます。</div>
+          <a class="support-notice-btn" href="#" data-i18n="support-notice-btn">最新の活動報告を見る →</a>
+        </div>
+      </div>
+      <div class="support-img-side">
+        <div style="position:relative; width:100%; padding-bottom:110%;">
+          <div class="blob-hover-frame" style="clip-path:url(#support-blob);">
+            <img src="uploads/607649537_10233513128229822_5324948198413051830_n.jpg" alt="コミュニティの様子" style="object-position:center;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT + FAQ ── -->
+<section class="contact-faq" id="contact">
+  <div class="section-inner">
+    <div class="section-label" data-i18n="contact-label">つながる・お問い合わせ</div>
+    <h2 class="section-title" style="margin-bottom:40px;" data-i18n="contact-title">気軽にご連絡ください！</h2>
+    <div class="contact-faq-grid">
+      <div>
+        <div class="contact-title" data-i18n="contact-methods-title">連絡方法</div>
+        <div class="contact-methods">
+          <a class="contact-method" href="#">
+            <div class="contact-method-icon line" style="color:#fff;">LINE</div>
+            <div>
+              <div class="contact-method-label" data-i18n="contact-line-label">LINEでつながる</div>
+              <div class="contact-method-sub" data-i18n="contact-line-sub">友達登録で気軽に相談</div>
+            </div>
+          </a>
+          <a class="contact-method" href="#">
+            <div class="contact-method-icon mail" style="color:#fff;">✉</div>
+            <div>
+              <div class="contact-method-label" data-i18n="contact-mail-label">メールで問い合わせ</div>
+              <div class="contact-method-sub">info@dunamiswings.jp</div>
+            </div>
+          </a>
+          <a class="contact-method" href="#">
+            <div class="contact-method-icon form" style="color:#fff;">📝</div>
+            <div>
+              <div class="contact-method-label" data-i18n="contact-form-label">フォームで送る</div>
+              <div class="contact-method-sub" data-i18n="contact-form-sub">お問い合わせフォームはこちら</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="faq-title" data-i18n="faq-title">よくある質問</div>
+        <div class="faq-items">
+          <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq1-q">キリスト教を信じていなくても参加できますか？</div>
+            <div class="faq-a" data-i18n="faq1-a">もちろんです！信仰の有無に関わらず、興味のある方はどなたでも歓迎します。まず来てみてください。</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq2-q">何歳から参加できますか？</div>
+            <div class="faq-a" data-i18n="faq2-a">主に高校生・大学生を対象としていますが、それ以外の方もご相談ください。</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq3-q">費用はかかりますか？</div>
+            <div class="faq-a" data-i18n="faq3-a">集会・バイブルスタディへの参加は無料です。イベントは内容によって実費をいただく場合があります。</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')" data-i18n="faq4-q">一人で来ても大丈夫ですか？</div>
+            <div class="faq-a" data-i18n="faq4-a">大丈夫です！スタッフが温かくお迎えします。一人で来られる方も多いので安心してください。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Dunamis Wings</div>
+        <div class="footer-tagline" data-i18n="footer-tagline">若い世代が信仰と共に羽ばたくための<br>キリスト教コミュニティ</div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <div class="footer-col-title" data-i18n="footer-about-title">About</div>
+          <a href="#about" data-i18n="footer-about-1">私たちについて</a>
+          <a href="#activities" data-i18n="footer-about-2">活動内容</a>
+          <a href="#stories" data-i18n="footer-about-3">ストーリー</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title" data-i18n="footer-join-title">Join</div>
+          <a href="#support" data-i18n="footer-join-1">サポート</a>
+          <a href="#contact" data-i18n="footer-join-2">お問い合わせ</a>
+          <a href="#" data-i18n="footer-join-3">プライバシーポリシー</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy" data-i18n="footer-copy">© 2026 Dunamis Wings. All rights reserved.</div>
+      <div class="footer-socials">
+        <a class="footer-social" href="#">IG</a>
+        <a class="footer-social" href="#">YT</a>
+        <a class="footer-social" href="#">X</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Hamburger ── */
+function toggleMenu() {
+  var btn = document.getElementById('hamburger');
+  var nav = document.getElementById('mobile-nav');
+  btn.classList.toggle('open');
+  nav.classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobile-nav').classList.remove('open');
+}
+document.addEventListener('click', function(e) {
+  var nav = document.getElementById('mobile-nav');
+  var btn = document.getElementById('hamburger');
+  if (nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) {
+    closeMenu();
+  }
+});
+
+/* ── i18n ── */
+var translations = {
+  ja: {
+    'nav-about': '私たちについて',
+    'nav-activities': '活動内容',
+    'nav-stories': 'ストーリー',
+    'nav-support': 'サポート',
+    'nav-contact': 'お問い合わせ',
+    'nav-cta': '✦ コミュニティに参加する',
+    'mobile-nav-about': '私たちについて',
+    'mobile-nav-activities': '活動内容',
+    'mobile-nav-stories': 'ストーリー',
+    'mobile-nav-support': 'サポート',
+    'mobile-nav-contact': 'お問い合わせ',
+    'hero-eyebrow': '高校生・大学生のためのキリスト教コミュニティ',
+    'hero-heading': 'あなたの<em>翼</em>を、<br>ここから広げよう。',
+    'hero-sub': 'Dunamis Wingsは、若い世代が<span class="underline-accent">信仰と共に</span>自分らしく生き、<br>力強く羽ばたくことを応援するコミュニティです。',
+    'hero-btn1-main': '集会に参加する',
+    'hero-btn1-sub': 'まずは見てみるだけでもOK！',
+    'hero-btn2-main': '話を聞いてみる',
+    'hero-btn2-sub': '気軽に相談できます',
+    'hero-btn3-main': '活動を支える',
+    'hero-btn3-sub': 'サポート・献金について',
+    'about-label': '私たちについて',
+    'about-title': 'Dunamis Wingsって<br>どんなところ？',
+    'about-sub': 'ギリシャ語で「力・能力」を意味する「Dunamis」。<br>信仰の力で、若者が自由に羽ばたける場所をつくっています。',
+    'about-mission-title': 'ミッション',
+    'about-mission-body': '聖書の教えを土台に、若い世代が信仰を育み、人生の使命を見つけることを支援します。',
+    'about-vision-title': 'ビジョン',
+    'about-vision-body': 'すべての若者が、神に愛されていることを知り、自分らしく生き、社会へ羽ばたける場所をつくる。',
+    'about-faith-title': '信仰の土台',
+    'about-faith-body': '私たちは聖書を神のことばと信じ、イエス・キリストを救い主として礼拝するコミュニティです。',
+    'activities-label': '活動内容',
+    'activities-title': '普段どんなことをしているの？',
+    'activities-sub': '毎週の礼拝から少人数でのバイブルスタディ、季節ごとのイベントまで。',
+    'act1-tag': '礼拝',
+    'act1-title': '賛美とメッセージ',
+    'act1-desc': '毎週日曜日、賛美礼拝とメッセージを通して、信仰を一緒に深めています。',
+    'act1-meta1': '毎週日曜日 13:30〜15:00',
+    'act1-meta2': '市内キリスト教会ホール',
+    'act2-tag': 'バイブルスタディ',
+    'act2-title': '少人数の学び',
+    'act2-desc': '少人数グループで聖書を読み、日常のことも話せる安心できる学びの場です。',
+    'act2-meta1': '平日・週末（場所によって）',
+    'act2-meta2': '市内カフェ・各所',
+    'act3-tag': 'イベント',
+    'act3-title': '楽しいイベントも！',
+    'act3-desc': 'BBQ、クリスマスなど、季節ごとのイベントを楽しく開催しています。',
+    'act3-meta1': '随時・告知あり',
+    'act3-meta2': '屋外・各施設',
+    'stories-label': 'ストーリー',
+    'stories-title': '実際に参加した人の声',
+    'stories-more': 'もっと見る →',
+    'story1-name': '大学2年生・あいさん',
+    'story1-quote': 'ここに来て、本当の自分を出せるようになりました。',
+    'story1-body': '人間関係で悩んでいたころ、なんでも話せる仲間ができて、毎日が楽しくなりました。',
+    'story2-name': '高校3年生・まくん',
+    'story2-quote': '聖書のメッセージが、生き方のセンターになっています。',
+    'story2-body': '進路や将来のことで不安だったとき、聖書の言葉が心の支えになりました。',
+    'story3-name': 'お母さん・さんより',
+    'story3-quote': '安心して通わせることができる場所です。',
+    'story3-body': '子どもの成長を間近で見て、信頼できるコミュニティだと感じています。',
+    'support-label': 'サポートについて',
+    'support-title': '活動を一緒に<br>支えてください',
+    'support-sub': '皆さまのサポートが、若者たちの信仰の旅を支えています。',
+    'support-item1-title': '学生支援活動',
+    'support-item1-body': '奨学・支援金、学習サポートプログラム',
+    'support-item2-title': '会場・運営費',
+    'support-item2-body': '集会場所の確保とスタッフ活動費',
+    'support-item3-title': 'イベント・教材',
+    'support-item3-body': 'キャンプ・バイブルなど教材費',
+    'support-item4-title': '地域宣教',
+    'support-item4-body': '地域への福音宣教と新たな輪の拡大',
+    'donate-btn': '💛 献金する',
+    'support-notice-title': '✦ 透明性を大切にしています',
+    'support-notice-body': '毎月の活動報告を公開し、皆さまのサポートがどのように使われているかをご確認いただけます。',
+    'support-notice-btn': '最新の活動報告を見る →',
+    'contact-label': 'つながる・お問い合わせ',
+    'contact-title': '気軽にご連絡ください！',
+    'contact-methods-title': '連絡方法',
+    'contact-line-label': 'LINEでつながる',
+    'contact-line-sub': '友達登録で気軽に相談',
+    'contact-mail-label': 'メールで問い合わせ',
+    'contact-form-label': 'フォームで送る',
+    'contact-form-sub': 'お問い合わせフォームはこちら',
+    'faq-title': 'よくある質問',
+    'faq1-q': 'キリスト教を信じていなくても参加できますか？',
+    'faq1-a': 'もちろんです！信仰の有無に関わらず、興味のある方はどなたでも歓迎します。まず来てみてください。',
+    'faq2-q': '何歳から参加できますか？',
+    'faq2-a': '主に高校生・大学生を対象としていますが、それ以外の方もご相談ください。',
+    'faq3-q': '費用はかかりますか？',
+    'faq3-a': '集会・バイブルスタディへの参加は無料です。イベントは内容によって実費をいただく場合があります。',
+    'faq4-q': '一人で来ても大丈夫ですか？',
+    'faq4-a': '大丈夫です！スタッフが温かくお迎えします。一人で来られる方も多いので安心してください。',
+    'footer-tagline': '若い世代が信仰と共に羽ばたくための<br>キリスト教コミュニティ',
+    'footer-about-title': 'About',
+    'footer-about-1': '私たちについて',
+    'footer-about-2': '活動内容',
+    'footer-about-3': 'ストーリー',
+    'footer-join-title': 'Join',
+    'footer-join-1': 'サポート',
+    'footer-join-2': 'お問い合わせ',
+    'footer-join-3': 'プライバシーポリシー',
+    'footer-copy': '© 2026 Dunamis Wings. All rights reserved.',
+  },
+  en: {
+    'nav-about': 'About Us',
+    'nav-activities': 'Activities',
+    'nav-stories': 'Stories',
+    'nav-support': 'Support',
+    'nav-contact': 'Contact',
+    'nav-cta': '✦ Join Our Community',
+    'mobile-nav-about': 'About Us',
+    'mobile-nav-activities': 'Activities',
+    'mobile-nav-stories': 'Stories',
+    'mobile-nav-support': 'Support',
+    'mobile-nav-contact': 'Contact',
+    'hero-eyebrow': 'Christian Community for High School &amp; University Students',
+    'hero-heading': 'Spread Your <em>Wings</em>,<br>Starting Here.',
+    'hero-sub': 'Dunamis Wings is a community that supports young people to live authentically <span class="underline-accent">in faith</span>,<br>and take flight with strength.',
+    'hero-btn1-main': 'Join a Gathering',
+    'hero-btn1-sub': 'Just come and see for yourself!',
+    'hero-btn2-main': 'Talk to Us',
+    'hero-btn2-sub': 'Feel free to reach out anytime',
+    'hero-btn3-main': 'Support Our Mission',
+    'hero-btn3-sub': 'About support &amp; donations',
+    'about-label': 'About Us',
+    'about-title': 'What is<br>Dunamis Wings?',
+    'about-sub': '&ldquo;Dunamis&rdquo; is the Greek word for &ldquo;power and ability.&rdquo;<br>Through the power of faith, we create a space where young people can freely take flight.',
+    'about-mission-title': 'Mission',
+    'about-mission-body': 'Grounded in Biblical teachings, we support young people in nurturing their faith and discovering their life\'s purpose.',
+    'about-vision-title': 'Vision',
+    'about-vision-body': 'To create a place where every young person knows they are loved by God, lives authentically, and takes flight into society.',
+    'about-faith-title': 'Foundation of Faith',
+    'about-faith-body': 'We are a community that believes the Bible is God\'s word and worships Jesus Christ as our Savior.',
+    'activities-label': 'Activities',
+    'activities-title': 'What Do We Do?',
+    'activities-sub': 'From weekly worship to small-group Bible studies, and seasonal events.',
+    'act1-tag': 'Worship',
+    'act1-title': 'Praise &amp; Message',
+    'act1-desc': 'Every Sunday, we deepen our faith together through praise worship and a message.',
+    'act1-meta1': 'Every Sunday 1:30–3:00 PM',
+    'act1-meta2': 'Local Christian Church Hall',
+    'act2-tag': 'Bible Study',
+    'act2-title': 'Small Group Learning',
+    'act2-desc': 'A safe, welcoming space to read the Bible in small groups and talk about everyday life.',
+    'act2-meta1': 'Weekdays &amp; Weekends (varies)',
+    'act2-meta2': 'Local Cafes &amp; Various Locations',
+    'act3-tag': 'Events',
+    'act3-title': 'Fun Events Too!',
+    'act3-desc': 'We hold fun seasonal events like BBQs, Christmas parties, and more.',
+    'act3-meta1': 'Announced as scheduled',
+    'act3-meta2': 'Outdoors &amp; Various Venues',
+    'stories-label': 'Stories',
+    'stories-title': 'Voices from Our Community',
+    'stories-more': 'More Stories →',
+    'story1-name': 'Ai, 2nd-year University Student',
+    'story1-quote': 'Coming here, I was finally able to be my true self.',
+    'story1-body': 'When I was struggling with relationships, I found friends I could talk to about anything, and every day became more joyful.',
+    'story2-name': 'Maku, 3rd-year High School Student',
+    'story2-quote': 'The message of the Bible has become the center of how I live.',
+    'story2-body': 'When I was anxious about my future and career, the words of the Bible became my anchor.',
+    'story3-name': 'From a Parent',
+    'story3-quote': 'It\'s a place I can trust my child to attend.',
+    'story3-body': 'Watching my child grow, I feel this is a community I can truly trust.',
+    'support-label': 'Support',
+    'support-title': 'Please Support<br>Our Mission',
+    'support-sub': 'Your support sustains the faith journey of young people.',
+    'support-item1-title': 'Student Support',
+    'support-item1-body': 'Scholarships, support grants, and learning programs',
+    'support-item2-title': 'Venue &amp; Operations',
+    'support-item2-body': 'Securing meeting venues and staff activity costs',
+    'support-item3-title': 'Events &amp; Materials',
+    'support-item3-body': 'Camp, Bible, and other material costs',
+    'support-item4-title': 'Local Mission',
+    'support-item4-body': 'Gospel outreach and expanding our community network',
+    'donate-btn': '💛 Donate',
+    'support-notice-title': '✦ We Value Transparency',
+    'support-notice-body': 'We publish monthly activity reports so you can see exactly how your support is being used.',
+    'support-notice-btn': 'View Latest Activity Report →',
+    'contact-label': 'Connect &amp; Contact',
+    'contact-title': 'Feel Free to Reach Out!',
+    'contact-methods-title': 'Contact Methods',
+    'contact-line-label': 'Connect on LINE',
+    'contact-line-sub': 'Add us as a friend and reach out anytime',
+    'contact-mail-label': 'Email Us',
+    'contact-form-label': 'Send a Form',
+    'contact-form-sub': 'Contact form here',
+    'faq-title': 'FAQ',
+    'faq1-q': 'Can I join even if I don\'t believe in Christianity?',
+    'faq1-a': 'Of course! Regardless of your faith background, anyone interested is welcome. Just come and see for yourself!',
+    'faq2-q': 'What age can I join from?',
+    'faq2-a': 'We primarily target high school and university students, but others are welcome to inquire.',
+    'faq3-q': 'Is there a cost to participate?',
+    'faq3-a': 'Gatherings and Bible studies are free. Some events may require a fee depending on the content.',
+    'faq4-q': 'Is it okay to come alone?',
+    'faq4-a': 'Absolutely! Our staff will warmly welcome you. Many people come alone, so please feel at ease.',
+    'footer-tagline': 'A Christian community for young people<br>to take flight with faith',
+    'footer-about-title': 'About',
+    'footer-about-1': 'About Us',
+    'footer-about-2': 'Activities',
+    'footer-about-3': 'Stories',
+    'footer-join-title': 'Join',
+    'footer-join-1': 'Support',
+    'footer-join-2': 'Contact',
+    'footer-join-3': 'Privacy Policy',
+    'footer-copy': '© 2026 Dunamis Wings. All rights reserved.',
+  }
+};
+
+function setLang(lang) {
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (translations[lang][key] !== undefined) {
+      el.innerHTML = translations[lang][key];
+    }
+  });
+  document.getElementById('btn-ja').classList.toggle('active', lang === 'ja');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.documentElement.lang = lang;
+  closeMenu();
+}
+</script>
+
+</body>
+</html>
