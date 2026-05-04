@@ -45,11 +45,15 @@
     padding: 0 40px; height: 64px;
   }
   .nav-logo {
-    display: flex; align-items: center;
-    text-decoration: none; flex-shrink: 0;
-  }
-  .nav-logo img {
-    height: 44px; width: auto; display: block;
+    display: block; flex-shrink: 0;
+    width: 130px; height: 48px;
+    text-decoration: none;
+    background-image: url('uploads/DunamisWingsLogo.jpg');
+    background-color: #F8FAFF;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center left;
+    background-blend-mode: multiply;
   }
   .nav-links {
     display: flex; gap: 28px; list-style: none;
@@ -187,18 +191,17 @@
     margin-bottom: 20px; letter-spacing: 0.05em;
   }
   .hero-logo-wrap {
-    display: inline-block;
-    background: #fff;
-    border-radius: 20px;
-    padding: 14px 28px;
-    box-shadow: 0 4px 24px rgba(74,142,214,0.13);
-    margin-bottom: 28px;
+    width: 260px; height: 130px;
+    background-image: url('uploads/DunamisWingsLogo.jpg');
+    background-color: #F8FAFF;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center left;
+    background-blend-mode: multiply;
+    margin-bottom: 20px;
   }
-  .hero-logo {
-    width: 180px; height: auto; display: block;
-  }
-  @media (max-width: 768px) { .hero-logo { width: 150px; } .hero-logo-wrap { padding: 12px 20px; } }
-  @media (max-width: 480px) { .hero-logo { width: 120px; } .hero-logo-wrap { padding: 10px 16px; border-radius: 14px; } }
+  @media (max-width: 768px) { .hero-logo-wrap { width: 210px; height: 105px; } }
+  @media (max-width: 480px) { .hero-logo-wrap { width: 170px; height: 85px; } }
 
   .hero-eyebrow-dot { width: 7px; height: 7px; background: var(--blue); border-radius: 50%; flex-shrink: 0; }
   .hero-heading {
@@ -579,7 +582,7 @@
   /* ── Small mobile (≤480px) ── */
   @media (max-width: 480px) {
     nav { padding: 0 14px; }
-    .nav-logo img { height: 36px; }
+    .nav-logo { width: 100px; height: 38px; }
     .lang-btn { font-size: 11px; padding: 4px 8px; }
 
     .hero-heading { font-size: 26px; }
@@ -629,9 +632,7 @@
 
 <!-- ── NAV ── -->
 <nav>
-  <a class="nav-logo" href="#">
-    <img src="uploads/DunamisWingsLogo.jpg" alt="Dunamis Wings">
-  </a>
+  <a class="nav-logo" href="#" role="img" aria-label="Dunamis Wings"></a>
   <ul class="nav-links">
     <li><a href="#about" data-i18n="nav-about">私たちについて</a></li>
     <li><a href="#activities" data-i18n="nav-activities">活動内容</a></li>
@@ -673,9 +674,7 @@
 
   <div class="hero-inner">
     <div class="hero-text">
-      <div class="hero-logo-wrap">
-        <img src="uploads/DunamisWingsLogo.jpg" alt="Dunamis Wings" class="hero-logo">
-      </div>
+      <div class="hero-logo-wrap" role="img" aria-label="Dunamis Wings ロゴ"></div>
       <div class="hero-eyebrow">
         <span class="hero-eyebrow-dot"></span>
         <span data-i18n="hero-eyebrow">高校生・大学生のためのキリスト教コミュニティ</span>
