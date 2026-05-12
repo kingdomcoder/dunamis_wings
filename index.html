@@ -649,17 +649,17 @@
 
   /* ── Japan Mission Section (Dark / Teen) ── */
   .japan-mission {
-    background: #07091C;
+    background: linear-gradient(150deg, #08021A 0%, #110425 30%, #180830 60%, #0D0520 100%);
     position: relative; overflow: hidden; padding: 100px 40px;
     color: #fff;
   }
 
   /* ── Aurora blobs ── */
   .jp-aurora { position: absolute; border-radius: 50%; pointer-events: none; filter: blur(90px); }
-  .jp-aurora-1 { width: 640px; height: 640px; background: rgba(120,40,255,0.28); top: -220px; right: -100px; animation: auroraDrift 10s ease-in-out infinite alternate; }
-  .jp-aurora-2 { width: 520px; height: 520px; background: rgba(0,200,255,0.22); bottom: -180px; left: -80px; animation: auroraDrift 13s ease-in-out infinite alternate-reverse; }
-  .jp-aurora-3 { width: 400px; height: 400px; background: rgba(255,50,140,0.18); top: 30%; left: 30%; animation: auroraDrift 16s ease-in-out infinite alternate 2s; }
-  .jp-aurora-4 { width: 300px; height: 300px; background: rgba(255,160,0,0.15); bottom: 20%; right: 10%; animation: auroraDrift 11s ease-in-out infinite alternate 1s; }
+  .jp-aurora-1 { width: 700px; height: 700px; background: rgba(140,0,255,0.32); top: -250px; right: -120px; animation: auroraDrift 10s ease-in-out infinite alternate; }
+  .jp-aurora-2 { width: 580px; height: 580px; background: rgba(255,50,180,0.25); bottom: -200px; left: -100px; animation: auroraDrift 13s ease-in-out infinite alternate-reverse; }
+  .jp-aurora-3 { width: 460px; height: 460px; background: rgba(100,0,200,0.22); top: 25%; left: 25%; animation: auroraDrift 16s ease-in-out infinite alternate 2s; }
+  .jp-aurora-4 { width: 360px; height: 360px; background: rgba(200,0,150,0.18); bottom: 15%; right: 8%; animation: auroraDrift 11s ease-in-out infinite alternate 1s; }
   @keyframes auroraDrift {
     0%   { transform: translate(0, 0) scale(1); }
     100% { transform: translate(-55px, 45px) scale(1.18); }
