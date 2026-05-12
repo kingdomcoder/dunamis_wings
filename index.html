@@ -596,6 +596,310 @@
     .section-title { font-size: 21px; }
     .faq-q { font-size: 13px; }
   }
+
+  /* ═══════════════════════════════════
+     JAPAN MISSION TRIP
+  ═══════════════════════════════════ */
+
+  /* ── Announcement Banner ── */
+  .japan-alert {
+    position: fixed; top: 64px; left: 0; right: 0; z-index: 98;
+    height: 44px;
+    background: linear-gradient(90deg, #7D0019 0%, #BC002D 20%, #E8002D 50%, #BC002D 80%, #7D0019 100%);
+    background-size: 300% 100%;
+    animation: japanBannerMove 4s linear infinite;
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 16px;
+    box-shadow: 0 4px 24px rgba(188,0,45,0.55);
+  }
+  @keyframes japanBannerMove {
+    0% { background-position: 0% center; }
+    100% { background-position: 300% center; }
+  }
+  .japan-alert-inner {
+    display: flex; align-items: center; gap: 14px;
+    max-width: 1200px; width: 100%;
+  }
+  .japan-alert-text {
+    flex: 1; text-align: center; font-size: 13px; font-weight: 700;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .japan-alert-btn {
+    background: #fff; color: #BC002D; border-radius: 50px;
+    padding: 5px 16px; font-size: 12px; font-weight: 800;
+    text-decoration: none; flex-shrink: 0;
+    animation: jpBtnPop 2s ease-in-out infinite alternate;
+    transition: transform .15s;
+  }
+  .japan-alert-btn:hover { transform: scale(1.06); }
+  @keyframes jpBtnPop {
+    0% { box-shadow: 0 2px 8px rgba(255,255,255,0.3); }
+    100% { box-shadow: 0 4px 20px rgba(255,255,255,0.7); }
+  }
+  .japan-alert-close {
+    background: none; border: none; color: rgba(255,255,255,0.65);
+    cursor: pointer; font-size: 17px; padding: 4px 8px; flex-shrink: 0;
+    transition: color .15s; line-height: 1; font-family: sans-serif;
+  }
+  .japan-alert-close:hover { color: #fff; }
+
+  body.has-banner .hero { padding-top: 152px; }
+  body.has-banner .mobile-nav { top: 108px; }
+
+  /* ── Japan Mission Section (Dark / Teen) ── */
+  .japan-mission {
+    background: #07091C;
+    position: relative; overflow: hidden; padding: 100px 40px;
+    color: #fff;
+  }
+
+  /* ── Aurora blobs ── */
+  .jp-aurora { position: absolute; border-radius: 50%; pointer-events: none; filter: blur(90px); }
+  .jp-aurora-1 { width: 640px; height: 640px; background: rgba(120,40,255,0.28); top: -220px; right: -100px; animation: auroraDrift 10s ease-in-out infinite alternate; }
+  .jp-aurora-2 { width: 520px; height: 520px; background: rgba(0,200,255,0.22); bottom: -180px; left: -80px; animation: auroraDrift 13s ease-in-out infinite alternate-reverse; }
+  .jp-aurora-3 { width: 400px; height: 400px; background: rgba(255,50,140,0.18); top: 30%; left: 30%; animation: auroraDrift 16s ease-in-out infinite alternate 2s; }
+  .jp-aurora-4 { width: 300px; height: 300px; background: rgba(255,160,0,0.15); bottom: 20%; right: 10%; animation: auroraDrift 11s ease-in-out infinite alternate 1s; }
+  @keyframes auroraDrift {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-55px, 45px) scale(1.18); }
+  }
+
+  /* Grid lines overlay */
+  .jp-grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Flying plane */
+  .jp-plane {
+    position: absolute; font-size: 32px; opacity: 0; top: 20%;
+    animation: planefly 14s linear infinite;
+    filter: drop-shadow(0 0 12px rgba(0,200,255,0.7));
+  }
+  @keyframes planefly {
+    0%   { left: -70px; opacity: 0; }
+    8%   { opacity: 0.65; }
+    92%  { opacity: 0.65; }
+    100% { left: calc(100% + 70px); opacity: 0; }
+  }
+
+  /* Deco emojis */
+  .jp-deco { position: absolute; pointer-events: none; }
+  .jp-deco-1 { top: 7%;  left: 2%;   font-size: 36px; opacity: 0.14; animation: float 5s   ease-in-out infinite; }
+  .jp-deco-2 { top: 12%; right: 22%; font-size: 48px; opacity: 0.12; animation: float 7s   ease-in-out infinite reverse; }
+  .jp-deco-3 { bottom: 22%; left: 1%;  font-size: 40px; opacity: 0.13; animation: float 6s ease-in-out infinite 1s; }
+  .jp-deco-4 { bottom: 8%;  right: 3%; font-size: 44px; opacity: 0.12; animation: float 5.5s ease-in-out infinite 0.5s; }
+  .jp-deco-5 { top: 50%; left: 0.5%; font-size: 30px; opacity: 0.12; animation: float 8s   ease-in-out infinite 2s; }
+  .jp-deco-6 { top: 68%; right: 1.5%; font-size: 38px; opacity: 0.13; animation: float 6.5s ease-in-out infinite 1.5s; }
+
+  /* Layout */
+  .jp-inner { max-width: 1120px; margin: 0 auto; position: relative; z-index: 1; }
+
+  /* Label */
+  .jp-label {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(0,200,255,0.1); border: 1px solid rgba(0,200,255,0.4);
+    color: #00C8FF; border-radius: 50px;
+    padding: 7px 20px; font-size: 12px; font-weight: 800;
+    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 28px;
+  }
+  .jp-label-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #00C8FF; flex-shrink: 0;
+    box-shadow: 0 0 10px rgba(0,200,255,0.9);
+    animation: pulseDot 1.5s ease-in-out infinite;
+  }
+  @keyframes pulseDot {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.7); box-shadow: 0 0 18px rgba(0,200,255,1); }
+  }
+
+  /* Title */
+  .jp-title-wrap { margin-bottom: 28px; line-height: 0.95; }
+  .jp-title { font-family: 'Outfit', sans-serif; font-weight: 800; letter-spacing: -0.03em; display: block; }
+  .jp-t1 { font-size: 90px; color: #fff; text-shadow: 0 0 60px rgba(120,40,255,0.4); }
+  .jp-t2 {
+    font-size: 90px;
+    background: linear-gradient(90deg, #FF2D78 0%, #FF7A00 45%, #FFD600 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    filter: drop-shadow(0 0 24px rgba(255,45,120,0.45));
+  }
+  .jp-t2-flag { font-size: 72px; -webkit-text-fill-color: initial; filter: none; }
+  .jp-t3 { font-size: 62px; color: rgba(255,255,255,0.15); }
+
+  /* Stats */
+  .jp-stats { display: flex; gap: 14px; margin-bottom: 36px; flex-wrap: wrap; }
+  .jp-stat {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px; padding: 14px 22px; text-align: center; min-width: 90px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); backdrop-filter: blur(10px);
+  }
+  .jp-stat-num { display: block; font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 800; color: #00C8FF; line-height: 1; margin-bottom: 4px; }
+  .jp-stat-label { font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* Date row */
+  .jp-date-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
+  .jp-date-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, #FF2D78, #FF7A00);
+    color: #fff; border-radius: 12px; padding: 10px 24px;
+    font-size: 16px; font-weight: 800;
+    box-shadow: 0 4px 22px rgba(255,45,120,0.45);
+  }
+  .jp-cities { font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.5); }
+
+  /* Description */
+  .jp-desc { font-size: 17px; color: rgba(255,255,255,0.7); line-height: 1.9; margin-bottom: 52px; max-width: 720px; }
+  .jp-desc strong { color: #fff; }
+
+  /* Destination cards */
+  .jp-destinations { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 52px; }
+  .jp-dest-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 28px; padding: 36px 32px;
+    backdrop-filter: blur(24px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+    position: relative; overflow: hidden;
+  }
+  .jp-dest-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    border-radius: 28px 28px 0 0;
+  }
+  .jp-dest-card:nth-child(1) { transform: rotate(-0.6deg); }
+  .jp-dest-card:nth-child(2) { transform: rotate(0.5deg); }
+  .jp-dest-card:nth-child(1)::before { background: linear-gradient(90deg, #FF2D78, #FF7A00); }
+  .jp-dest-card:nth-child(2)::before { background: linear-gradient(90deg, #00C8FF, #7B61FF); }
+  .jp-dest-card:nth-child(1):hover { transform: rotate(0deg) translateY(-10px); box-shadow: 0 24px 56px rgba(255,45,120,0.28), 0 0 0 1px rgba(255,45,120,0.35); border-color: rgba(255,45,120,0.35); }
+  .jp-dest-card:nth-child(2):hover { transform: rotate(0deg) translateY(-10px); box-shadow: 0 24px 56px rgba(0,200,255,0.22), 0 0 0 1px rgba(0,200,255,0.35); border-color: rgba(0,200,255,0.35); }
+  .jp-dest-emoji { font-size: 54px; margin-bottom: 16px; display: inline-block; animation: float 4s ease-in-out infinite; }
+  .jp-dest-city { font-family: 'Outfit', sans-serif; font-size: 42px; font-weight: 800; color: #fff; margin-bottom: 4px; line-height: 1; }
+  .jp-dest-ja { font-size: 20px; color: rgba(255,255,255,0.4); font-weight: 700; margin-bottom: 14px; }
+  .jp-dest-desc { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.75; }
+
+  /* Support box */
+  .jp-support {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,214,0,0.3);
+    border-radius: 32px; padding: 44px 52px;
+    display: flex; align-items: center; gap: 44px;
+    position: relative; overflow: hidden;
+    backdrop-filter: blur(24px);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+  .jp-support-bg { position: absolute; right: 40px; top: 50%; transform: translateY(-50%); font-size: 130px; opacity: 0.05; pointer-events: none; line-height: 1; }
+  .jp-support-text { flex: 1; min-width: 260px; position: relative; z-index: 1; }
+  .jp-support-title { font-size: 24px; font-weight: 800; margin-bottom: 14px; color: #FFD600; line-height: 1.3; }
+  .jp-support-body { font-size: 14.5px; color: rgba(255,255,255,0.65); line-height: 1.85; }
+  .jp-support-body strong { color: #FF7A00; }
+  .jp-donate-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, #FF2D78 0%, #FF7A00 100%);
+    color: #fff; border-radius: 50px; padding: 20px 44px;
+    font-size: 17px; font-weight: 800; text-decoration: none;
+    font-family: 'Noto Sans JP', sans-serif;
+    white-space: nowrap; flex-shrink: 0; position: relative; z-index: 1;
+    transition: transform .15s;
+    animation: jpDonateGlow 2s ease-in-out infinite alternate;
+  }
+  .jp-donate-btn:hover { transform: translateY(-4px) scale(1.04); }
+  @keyframes jpDonateGlow {
+    0%   { box-shadow: 0 4px 24px rgba(255,45,120,0.5); }
+    100% { box-shadow: 0 8px 52px rgba(255,122,0,0.8), 0 0 80px rgba(255,45,120,0.3); }
+  }
+
+  /* Marquee strip */
+  .jp-marquee-wrap {
+    overflow: hidden; padding: 13px 0;
+    margin: 52px -40px 0; position: relative; z-index: 2;
+    background: linear-gradient(90deg, #7828FF, #FF2D78, #FF7A00, #FF2D78, #7828FF);
+    background-size: 300% 100%;
+    animation: marqueeGradAnim 6s linear infinite;
+  }
+  @keyframes marqueeGradAnim {
+    0%   { background-position: 0% center; }
+    100% { background-position: 300% center; }
+  }
+  .jp-marquee-inner {
+    display: flex; align-items: center; width: max-content;
+    animation: marqueeLeft 26s linear infinite;
+    font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 800;
+    letter-spacing: 0.1em; color: #fff; white-space: nowrap;
+  }
+  .jp-m-item { padding: 0 18px; }
+  .jp-m-sep { color: rgba(255,255,255,0.5); padding: 0 4px; font-size: 17px; }
+  @keyframes marqueeLeft {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Photo carousel */
+  .jp-photos-section { margin: 64px -40px 60px; overflow: hidden; }
+  .jp-photos-header {
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    padding: 0 40px 22px;
+    font-family: 'Outfit', sans-serif; font-size: 19px; font-weight: 800; color: #fff;
+  }
+  .jp-photos-hr { height: 1px; flex: 1; max-width: 80px; background: rgba(255,255,255,0.2); border-radius: 2px; }
+  .jp-strip-wrap { overflow: hidden; padding: 8px 0; }
+  .jp-photo-strip { display: flex; gap: 14px; width: max-content; padding: 0 7px; animation: stripLeft 52s linear infinite; }
+  .jp-photo-strip:hover { animation-play-state: paused; }
+  .jp-strip-rev { animation: stripRight 58s linear infinite; }
+  .jp-strip-rev:hover { animation-play-state: paused; }
+  .jp-photo-item {
+    width: 280px; height: 200px; flex-shrink: 0;
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 6px 28px rgba(0,0,0,0.55);
+    border: 2px solid rgba(255,255,255,0.12);
+    transition: transform .25s, box-shadow .25s, border-color .25s; cursor: pointer;
+  }
+  .jp-photo-item:nth-child(3n+1) { transform: rotate(-1.4deg); }
+  .jp-photo-item:nth-child(3n+2) { transform: rotate(0.9deg); }
+  .jp-photo-item:nth-child(3n)   { transform: rotate(-0.5deg); }
+  .jp-photo-item:hover { transform: rotate(0deg) scale(1.07) !important; box-shadow: 0 14px 44px rgba(255,45,120,0.4); border-color: rgba(255,45,120,0.5); position: relative; z-index: 3; }
+  .jp-photo-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @keyframes stripLeft  { 0% { transform: translateX(0); }   100% { transform: translateX(-50%); } }
+  @keyframes stripRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .japan-alert-text { font-size: 11.5px; }
+    body.has-banner .hero { padding-top: 132px; }
+    body.has-banner .mobile-nav { top: 108px; }
+    .japan-mission { padding: 80px 20px; }
+    .jp-t1, .jp-t2 { font-size: 54px; }
+    .jp-t2-flag { font-size: 44px; }
+    .jp-t3 { font-size: 38px; }
+    .jp-destinations { grid-template-columns: 1fr; }
+    .jp-dest-card:nth-child(1), .jp-dest-card:nth-child(2) { transform: none; }
+    .jp-dest-card:nth-child(1):hover, .jp-dest-card:nth-child(2):hover { transform: translateY(-6px); }
+    .jp-support { flex-direction: column; gap: 28px; padding: 36px 28px; }
+    .jp-support-bg { display: none; }
+    .jp-desc { font-size: 15px; }
+    .jp-marquee-wrap { margin: 40px -20px 0; }
+    .jp-photos-section { margin: 52px -20px 48px; }
+    .jp-photo-item { width: 220px; height: 158px; }
+    .jp-stats { gap: 10px; }
+    .jp-stat { padding: 12px 16px; min-width: 76px; }
+    .jp-stat-num { font-size: 22px; }
+    .jp-photos-header { font-size: 16px; }
+  }
+  @media (max-width: 480px) {
+    .japan-alert { height: auto; min-height: 44px; padding: 8px 12px; }
+    .japan-alert-text { white-space: normal; text-align: center; font-size: 11px; }
+    body.has-banner .hero { padding-top: 160px; }
+    .jp-t1, .jp-t2 { font-size: 42px; }
+    .jp-t3 { font-size: 30px; }
+    .jp-donate-btn { font-size: 15px; padding: 16px 28px; width: 100%; justify-content: center; }
+    .jp-support { padding: 28px 20px; }
+    .jp-dest-card { padding: 28px 24px; }
+    .jp-photo-item { width: 178px; height: 128px; }
+    .jp-photos-header { font-size: 14px; padding: 0 20px 16px; }
+  }
 </style>
 </head>
 <body>
@@ -660,6 +964,15 @@
   <a href="#support" data-i18n="mobile-nav-support" onclick="closeMenu()">サポート</a>
   <a href="#contact" data-i18n="mobile-nav-contact" onclick="closeMenu()">お問い合わせ</a>
   <a href="#contact" class="mobile-nav-cta" data-i18n="nav-cta" onclick="closeMenu()">✦ コミュニティに参加する</a>
+</div>
+
+<!-- ── JAPAN ANNOUNCEMENT BANNER ── -->
+<div class="japan-alert" id="japan-alert">
+  <div class="japan-alert-inner">
+    <div class="japan-alert-text" data-i18n="jp-banner-text">🎌✈️ &nbsp;<strong>JAPAN MISSION TRIP 2026</strong>&nbsp; — 東京・静岡へ宣教旅行！&nbsp;サポート受付中 🙏</div>
+    <a class="japan-alert-btn" href="#japan-mission" data-i18n="jp-banner-btn">詳細はこちら ↓</a>
+    <button class="japan-alert-close" onclick="closeJapanAlert()" aria-label="閉じる">✕</button>
+  </div>
 </div>
 
 <!-- ── HERO ── -->
@@ -727,9 +1040,123 @@
           </svg>
         </div>
         <div class="hero-img-blob-frame">
-          <img src="uploads/top.jpg" alt="Dunamis Wings集会の様子" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+          <img id="ec-photo-hero" src="uploads/top.jpg" alt="Dunamis Wings集会の様子" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── JAPAN MISSION TRIP ── -->
+<section class="japan-mission" id="japan-mission">
+  <div class="jp-aurora jp-aurora-1"></div>
+  <div class="jp-aurora jp-aurora-2"></div>
+  <div class="jp-aurora jp-aurora-3"></div>
+  <div class="jp-aurora jp-aurora-4"></div>
+  <div class="jp-grid"></div>
+  <div class="jp-plane">✈️</div>
+  <div class="jp-deco jp-deco-1">🎌</div>
+  <div class="jp-deco jp-deco-2">🗼</div>
+  <div class="jp-deco jp-deco-3">⛩️</div>
+  <div class="jp-deco jp-deco-4">🗻</div>
+  <div class="jp-deco jp-deco-5">🌸</div>
+  <div class="jp-deco jp-deco-6">✨</div>
+
+  <!-- Scrolling marquee strip -->
+  <div class="jp-marquee-wrap">
+    <div class="jp-marquee-inner">
+      <span class="jp-m-item">JAPAN MISSION TRIP</span><span class="jp-m-sep">🎌</span>
+      <span class="jp-m-item">TOKYO 東京</span><span class="jp-m-sep">🗼</span>
+      <span class="jp-m-item">SHIZUOKA 静岡</span><span class="jp-m-sep">🗻</span>
+      <span class="jp-m-item">JULY 2026</span><span class="jp-m-sep">✈️</span>
+      <span class="jp-m-item">SUMMER MISSION</span><span class="jp-m-sep">🌸</span>
+      <span class="jp-m-item">2ND YEAR IN JAPAN</span><span class="jp-m-sep">🔥</span>
+      <span class="jp-m-item">DUNAMIS WINGS</span><span class="jp-m-sep">🕊️</span>
+      <span class="jp-m-item">JAPAN MISSION TRIP</span><span class="jp-m-sep">🎌</span>
+      <span class="jp-m-item">TOKYO 東京</span><span class="jp-m-sep">🗼</span>
+      <span class="jp-m-item">SHIZUOKA 静岡</span><span class="jp-m-sep">🗻</span>
+      <span class="jp-m-item">JULY 2026</span><span class="jp-m-sep">✈️</span>
+      <span class="jp-m-item">SUMMER MISSION</span><span class="jp-m-sep">🌸</span>
+      <span class="jp-m-item">2ND YEAR IN JAPAN</span><span class="jp-m-sep">🔥</span>
+      <span class="jp-m-item">DUNAMIS WINGS</span><span class="jp-m-sep">🕊️</span>
+    </div>
+  </div>
+
+  <div class="jp-inner">
+    <div class="jp-label">
+      <span class="jp-label-dot"></span>
+      COMING JULY 2026
+    </div>
+
+    <div class="jp-title-wrap">
+      <span class="jp-title jp-t1">JAPAN</span>
+      <span class="jp-title jp-t2">MISSION <span class="jp-t2-flag">🎌</span></span>
+      <span class="jp-title jp-t3">TRIP 2026</span>
+    </div>
+
+    <div class="jp-stats">
+      <div class="jp-stat"><span class="jp-stat-num">2</span><span class="jp-stat-label">CITIES</span></div>
+      <div class="jp-stat"><span class="jp-stat-num">2nd</span><span class="jp-stat-label">YEAR</span></div>
+      <div class="jp-stat"><span class="jp-stat-num">JULY</span><span class="jp-stat-label">2026</span></div>
+      <div class="jp-stat"><span class="jp-stat-num">🔥</span><span class="jp-stat-label">SUMMER</span></div>
+    </div>
+
+    <div class="jp-date-row">
+      <div class="jp-date-badge" data-i18n="jp-date-badge">✈️ 2026年7月 出発</div>
+      <span class="jp-cities">東京 🗼 &nbsp;＆&nbsp; 静岡 🗻</span>
+    </div>
+
+    <p class="jp-desc" data-i18n="jp-desc">
+      Dunamis Wingsのメンバーが、<strong>2年連続となる日本宣教旅行</strong>へ出発します！<br>
+      2025年に続いて今年も東京と静岡で人々と出会い、福音を分かち合い、<strong>一生忘れられない夏</strong>を一緒に作ります。<br>
+      信仰の力で国境を越える、最高の旅がここから始まります。🔥🕊️
+    </p>
+
+    <div class="jp-destinations">
+      <div class="jp-dest-card">
+        <span class="jp-dest-emoji">🗼</span>
+        <div class="jp-dest-city">TOKYO</div>
+        <div class="jp-dest-ja">東京</div>
+        <div class="jp-dest-desc" data-i18n="jp-tokyo-desc">世界最大の都市・東京で、若者たちと出会い、神の愛を伝えます。活気あふれる首都の中心で、福音の種を蒔く、スリリングな宣教！</div>
+      </div>
+      <div class="jp-dest-card">
+        <span class="jp-dest-emoji">🗻</span>
+        <div class="jp-dest-city">SHIZUOKA</div>
+        <div class="jp-dest-ja">静岡</div>
+        <div class="jp-dest-desc" data-i18n="jp-shizuoka-desc">富士山を望む美しい静岡で、地域コミュニティと深く交わり、神の愛を分かち合います。心に残る出会いと感動のひとときが待っています！</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photo carousel (2025 trip memories) -->
+  <div class="jp-photos-section">
+    <div class="jp-photos-header">
+      <span class="jp-photos-hr"></span>
+      📸 &nbsp;昨年2025年の様子 — こんなに楽しかった！
+      <span class="jp-photos-hr"></span>
+    </div>
+    <div class="jp-strip-wrap">
+      <div class="jp-photo-strip" id="jp-strip-1"></div>
+    </div>
+    <div class="jp-strip-wrap" style="margin-top:10px;">
+      <div class="jp-photo-strip jp-strip-rev" id="jp-strip-2"></div>
+    </div>
+  </div>
+
+  <div class="jp-inner" style="padding-top:0;">
+    <div class="jp-support">
+      <div class="jp-support-bg">💛</div>
+      <div class="jp-support-text">
+        <div class="jp-support-title" data-i18n="jp-support-title">💛 このミッションを一緒に支えてください！</div>
+        <div class="jp-support-body" data-i18n="jp-support-body">
+          Japan Mission Tripを実現するために、<strong>経済的なサポートを募っています</strong>。<br>
+          あなたの献金が、Dunamis Wingsのメンバーを日本へ送り出し、<br>
+          若者たちの心に神の愛を届けます。ぜひ、このミッションのパートナーになってください！🙏
+        </div>
+      </div>
+      <a class="jp-donate-btn" href="https://give.tithe.ly/?formId=7433cce0-79df-4679-b4e5-eae6c9a4fb78" target="_blank" rel="noopener noreferrer" data-i18n="jp-donate-btn">
+        💛 ミッションを支援する
+      </a>
     </div>
   </div>
 </section>
@@ -772,7 +1199,7 @@
         <div class="about-deco-dot"></div>
         <div style="position:relative; width:100%; padding-bottom:110%;">
           <div class="blob-hover-frame" style="clip-path:url(#about-blob);">
-            <img src="uploads/606002595_10233513129829862_8258941430771671582_n.jpg" alt="バイブルスタディの様子" style="object-position:center;">
+            <img id="ec-photo-about" src="uploads/606002595_10233513129829862_8258941430771671582_n.jpg" alt="バイブルスタディの様子" style="object-position:center;">
           </div>
         </div>
         <div class="about-deco-blob"></div>
@@ -791,7 +1218,7 @@
       <div class="activity-card">
         <div class="activity-card-img" style="padding:0;">
           <span class="activity-tag blue" data-i18n="act1-tag">礼拝</span>
-          <img src="uploads/605773481_10233513123509704_7945310842588665106_n.jpg" alt="礼拝の様子" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+          <img id="ec-photo-act1" src="uploads/605773481_10233513123509704_7945310842588665106_n.jpg" alt="礼拝の様子" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
         </div>
         <div class="activity-card-body">
           <div class="activity-card-title" data-i18n="act1-title">賛美とメッセージ</div>
@@ -805,7 +1232,7 @@
       <div class="activity-card">
         <div class="activity-card-img" style="padding:0;">
           <span class="activity-tag green" data-i18n="act2-tag">バイブルスタディ</span>
-          <img src="uploads/605564335_10233513124669733_5113194836603124316_n.jpg" alt="バイブルスタディの様子" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+          <img id="ec-photo-act2" src="uploads/605564335_10233513124669733_5113194836603124316_n.jpg" alt="バイブルスタディの様子" style="width:100%;height:100%;object-fit:cover;object-position:center;">
         </div>
         <div class="activity-card-body">
           <div class="activity-card-title" data-i18n="act2-title">少人数の学び</div>
@@ -819,7 +1246,7 @@
       <div class="activity-card">
         <div class="activity-card-img" style="padding:0;">
           <span class="activity-tag yellow" data-i18n="act3-tag">イベント</span>
-          <img src="uploads/605956836_10233513124029717_7341634694289804998_n.jpg" alt="イベントの様子" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+          <img id="ec-photo-act3" src="uploads/605956836_10233513124029717_7341634694289804998_n.jpg" alt="イベントの様子" style="width:100%;height:100%;object-fit:cover;object-position:center;">
         </div>
         <div class="activity-card-body">
           <div class="activity-card-title" data-i18n="act3-title">楽しいイベントも！</div>
@@ -908,7 +1335,7 @@
       <div class="support-img-side">
         <div style="position:relative; width:100%; padding-bottom:110%;">
           <div class="blob-hover-frame" style="clip-path:url(#support-blob);">
-            <img src="uploads/607649537_10233513128229822_5324948198413051830_n.jpg" alt="コミュニティの様子" style="object-position:center;">
+            <img id="ec-photo-support" src="uploads/607649537_10233513128229822_5324948198413051830_n.jpg" alt="コミュニティの様子" style="object-position:center;">
           </div>
         </div>
       </div>
@@ -1008,6 +1435,115 @@
 </footer>
 
 <script>
+/* ── Japan Mission Trip 2025 Photo Carousel ── */
+var jmtPhotos = [
+  '504376675_10231755345926363_6150969439786852827_n.jpg',
+  '519950809_10231606550606573_1975351543961379368_n.jpg',
+  '520025437_10231606550966582_4847531950534328180_n.jpg',
+  '520624903_10231586226138474_6847314285590822603_n.jpg',
+  '522547873_10231598917175742_8849187653810012908_n.jpg',
+  '522635196_10231610696990230_307100498618193662_n.jpg',
+  '522716555_10231622663329381_8381138346539841315_n.jpg',
+  '524297734_10231658627068452_179093962805924951_n.jpg',
+  '524311633_10231610694350164_6368064604876819708_n.jpg',
+  '524344850_10231658579267257_5185234331197942366_n.jpg',
+  '524355006_10231658601107803_4564420270967086614_n.jpg',
+  '524464136_10231658577387210_7329524666310200249_n.jpg',
+  '524495262_10231658600427786_6573972633974420162_n.jpg',
+  '524615307_10231658695830171_5542315064391352429_n.jpg',
+  '524757222_10231647404827903_6060865959051320626_n.jpg',
+  '524864900_10231658696350184_4003274768514528570_n.jpg',
+  '524940762_10231658600267782_1593597718547769733_n.jpg',
+  '524962071_10231658577427211_463008424955748600_n.jpg',
+  '525071070_10231658580907298_2199012329913175167_n.jpg',
+  '525218047_10231658697790220_1509195082480626608_n.jpg',
+  '525583771_10231688987707449_6807995033280694165_n.jpg',
+  '525707388_10231658694990150_5550749962731322899_n.jpg',
+  '525751530_10231688986707424_5178273343107321121_n.jpg',
+  '525765597_10231688985987406_8906069686012328677_n.jpg',
+  '525883274_10231680734941135_4089866368259603469_n.jpg',
+  '525960066_10231687856079159_6171402605565332139_n.jpg',
+  '526571923_10231703272824568_6527739478437252690_n.jpg',
+  '526573764_10231711313545581_4107159333534670012_n.jpg',
+  '526593348_10231703275224628_6680525248769110949_n.jpg',
+  '526616412_10231733610742997_4873949228230127871_n.jpg',
+  '527314865_10231714392382550_7036119047767370830_n.jpg',
+  '527477740_10231724736361143_7577556687481812051_n.jpg',
+  '527520481_10231724734201089_8022506619956039705_n.jpg',
+  '527791789_10231724757801679_6510789600709072845_n.jpg',
+  '528028219_10231737188912449_8476518059973891228_n.jpg',
+  '528109711_10231724697680176_703240104639747666_n.jpg',
+  '528360232_10231724706080386_733333840815042181_n.jpg',
+];
+function buildPhotoStrips() {
+  var s1 = document.getElementById('jp-strip-1');
+  var s2 = document.getElementById('jp-strip-2');
+  if (!s1 || !s2) return;
+  var half = Math.ceil(jmtPhotos.length / 2);
+  var set1 = jmtPhotos.slice(0, half);
+  var set2 = jmtPhotos.slice(half);
+  function makeHtml(photos) {
+    return photos.concat(photos).map(function(f) {
+      return '<div class="jp-photo-item"><img src="uploads/JapanMissionTrip2025/' + f + '" alt="Japan Mission Trip 2025" loading="lazy"></div>';
+    }).join('');
+  }
+  s1.innerHTML = makeHtml(set1);
+  s2.innerHTML = makeHtml(set2);
+}
+document.addEventListener('DOMContentLoaded', buildPhotoStrips);
+
+/* ── Japan Alert Banner ── */
+function closeJapanAlert() {
+  document.getElementById('japan-alert').style.display = 'none';
+  document.body.classList.remove('has-banner');
+}
+document.body.classList.add('has-banner');
+
+/* ── EC Random Photos ── */
+/* uploads/EC フォルダに写真を追加したら、このリストにファイル名を追加してください */
+var ecPhotos = [
+  '606002595_10233513129829862_8258941430771671582_n.jpg',
+  '605564335_10233513124669733_5113194836603124316_n.jpg',
+  'top.jpg',
+  '607647524_10233513130629882_8465687173114033342_n.jpg',
+  '605176871_10233513129589856_7513876604776183986_n.jpg',
+  '607514730_10233513121229647_4527479182814976349_n.jpg',
+  '607649537_10233513128229822_5324948198413051830_n.jpg',
+  '605775824_10233513122589681_8835541908780106811_n.jpg',
+  '605773481_10233513123509704_7945310842588665106_n.jpg',
+  '605956836_10233513124029717_7341634694289804998_n.jpg',
+  '605141069_10233513127309799_417164160437761585_n.jpg',
+  '607435290_10233513125349750_4752854638682582840_n.jpg',
+  '607133037_10233513127629807_7481117778990298389_n.jpg',
+  '606024358_10233513121909664_3435452904198204799_n.jpg',
+  '606087447_10233513126269773_3823148220897119711_n.jpg',
+  '605532889_10233513128909839_418162916488671660_n.jpg',
+  '607700315_10233513127989816_869937569181742741_n.jpg',
+  '605629816_10233513122069668_5171503477353885942_n.jpg',
+  '599674640_10233500160745643_2147908566097148913_n.jpg',
+  '604533474_10233500164265731_3543187531706286539_n.jpg',
+  '606668583_10233500160425635_5747503155096211748_n.jpg',
+];
+
+function pickRandom(arr, n) {
+  var shuffled = arr.slice().sort(function() { return Math.random() - 0.5; });
+  return shuffled.slice(0, n);
+}
+
+function applyEcPhotos() {
+  if (ecPhotos.length === 0) return;
+  var slots = ['ec-photo-hero','ec-photo-about','ec-photo-act1','ec-photo-act2','ec-photo-act3','ec-photo-support'];
+  var picks = pickRandom(ecPhotos, slots.length);
+  slots.forEach(function(id, i) {
+    var el = document.getElementById(id);
+    if (el && picks[i]) {
+      el.src = 'uploads/EC25/' + picks[i];
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', applyEcPhotos);
+
 /* ── Hamburger ── */
 function toggleMenu() {
   var btn = document.getElementById('hamburger');
@@ -1131,6 +1667,15 @@ var translations = {
     'footer-join-2': 'お問い合わせ',
     'footer-join-3': 'プライバシーポリシー',
     'footer-copy': '© 2026 Dunamis Wings. All rights reserved.',
+    'jp-banner-text': '🎌✈️ &nbsp;<strong>JAPAN MISSION TRIP 2026</strong>&nbsp; — 東京・静岡へ宣教旅行！&nbsp;サポート受付中 🙏',
+    'jp-banner-btn': '詳細はこちら ↓',
+    'jp-date-badge': '✈️ 2026年7月 出発',
+    'jp-desc': 'Dunamis Wingsのメンバーが、<strong>2年連続となる日本宣教旅行</strong>へ出発します！<br>2025年に続いて今年も東京と静岡で人々と出会い、福音を分かち合い、<strong>一生忘れられない夏</strong>を一緒に作ります。<br>信仰の力で国境を越える、最高の旅がここから始まります。🔥🕊️',
+    'jp-tokyo-desc': '世界最大の都市・東京で、若者たちと出会い、神の愛を伝えます。活気あふれる首都の中心で、福音の種を蒔く、スリリングな宣教！',
+    'jp-shizuoka-desc': '富士山を望む美しい静岡で、地域コミュニティと深く交わり、神の愛を分かち合います。心に残る出会いと感動のひとときが待っています！',
+    'jp-support-title': '💛 このミッションを一緒に支えてください！',
+    'jp-support-body': 'Japan Mission Tripを実現するために、<strong>経済的なサポートを募っています</strong>。<br>あなたの献金が、Dunamis Wingsのメンバーを日本へ送り出し、<br>若者たちの心に神の愛を届けます。ぜひ、このミッションのパートナーになってください！🙏',
+    'jp-donate-btn': '💛 ミッションを支援する',
   },
   en: {
     'nav-about': 'About Us',
@@ -1234,6 +1779,15 @@ var translations = {
     'footer-join-2': 'Contact',
     'footer-join-3': 'Privacy Policy',
     'footer-copy': '© 2026 Dunamis Wings. All rights reserved.',
+    'jp-banner-text': '🎌✈️ &nbsp;<strong>JAPAN MISSION TRIP 2026</strong>&nbsp; — Tokyo &amp; Shizuoka! &nbsp;Support Us 🙏',
+    'jp-banner-btn': 'Learn More ↓',
+    'jp-date-badge': '✈️ Departing July 2026',
+    'jp-desc': 'Dunamis Wings members are heading to Japan for our <strong>2nd consecutive Mission Trip</strong>!<br>Following our 2025 trip, we\'re returning to Tokyo and Shizuoka to share the Gospel, meet new people,<br>and create <strong>an unforgettable summer</strong> together. 🔥🕊️',
+    'jp-tokyo-desc': 'In the world\'s most vibrant city, we\'ll meet young people and share God\'s love. A thrilling mission right in the heart of Japan\'s bustling capital!',
+    'jp-shizuoka-desc': 'In beautiful Shizuoka at the foot of Mt. Fuji, we\'ll connect deeply with local communities and share God\'s love. Unforgettable encounters await!',
+    'jp-support-title': '💛 Partner With Us on This Mission!',
+    'jp-support-body': 'We are accepting <strong>financial support</strong> to make the Japan Mission Trip possible.<br>Your donation sends Dunamis Wings members to Japan to bring God\'s love<br>to the hearts of young people. Please become a partner in this mission! 🙏',
+    'jp-donate-btn': '💛 Support This Mission',
   }
 };
 
