@@ -865,6 +865,135 @@
   @keyframes stripLeft  { 0% { transform: translateX(0); }   100% { transform: translateX(-50%); } }
   @keyframes stripRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 
+  /* ── Weekly Devotion ── */
+  .devotion {
+    background: linear-gradient(135deg, #0D0825 0%, #1A0A4E 35%, #0A1F3E 70%, #091530 100%);
+    padding: 100px 40px; position: relative; overflow: hidden; color: #fff;
+  }
+  .devotion-blob { position: absolute; border-radius: 50%; pointer-events: none; filter: blur(80px); }
+  .devotion-blob-1 { width: 500px; height: 500px; background: rgba(0,230,180,0.18); top: -150px; left: -100px; }
+  .devotion-blob-2 { width: 420px; height: 420px; background: rgba(100,80,255,0.22); bottom: -100px; right: -80px; }
+  .devotion-blob-3 { width: 300px; height: 300px; background: rgba(255,200,0,0.10); top: 40%; right: 20%; }
+  .devotion-inner {
+    max-width: 1120px; margin: 0 auto; position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+  }
+  /* Visual card */
+  .devotion-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(0,230,180,0.25);
+    border-radius: 32px; padding: 44px 40px;
+    backdrop-filter: blur(24px);
+    box-shadow: 0 8px 48px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 16px;
+  }
+  .devotion-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, #00E6B4, #6366F1, #A855F7);
+  }
+  .devotion-card-top { display: flex; align-items: center; gap: 10px; }
+  .devotion-card-tag {
+    font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 800;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: #00E6B4; background: rgba(0,230,180,0.1);
+    border: 1px solid rgba(0,230,180,0.3); border-radius: 50px;
+    padding: 5px 14px;
+  }
+  .devotion-card-day {
+    font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 800;
+    color: #fff; line-height: 1;
+  }
+  .devotion-card-time {
+    font-family: 'Outfit', sans-serif; font-size: 72px; font-weight: 800;
+    line-height: 1; letter-spacing: -0.03em;
+    background: linear-gradient(90deg, #00E6B4, #6366F1);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .devotion-card-unit {
+    font-size: 28px; font-weight: 700; vertical-align: middle;
+    -webkit-text-fill-color: transparent;
+  }
+  .devotion-card-pst {
+    font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800;
+    color: rgba(255,255,255,0.4); letter-spacing: 0.2em; margin-top: -8px;
+  }
+  .devotion-card-divider { width: 100%; height: 1px; background: rgba(255,255,255,0.1); }
+  .devotion-card-host { display: flex; flex-direction: column; gap: 4px; }
+  .devotion-card-host-label {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.35); text-transform: uppercase;
+  }
+  .devotion-card-host-name {
+    font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 700; color: #fff;
+  }
+  .devotion-card-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .devotion-badge-wrap { display: flex; flex-direction: column; gap: 10px; }
+  .devotion-badge {
+    display: inline-flex; align-items: center; gap: 7px; border-radius: 50px;
+    padding: 8px 16px; font-size: 11px; font-weight: 800; letter-spacing: 0.08em;
+    white-space: nowrap; backdrop-filter: blur(10px);
+  }
+  .devotion-badge-free { background: linear-gradient(135deg, #00E6B4, #00B4D8); color: #000; }
+  .devotion-badge-bi   { background: linear-gradient(135deg, #A855F7, #6366F1); color: #fff; }
+  .devotion-badge-zoom { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; }
+  .devotion-content { display: flex; flex-direction: column; gap: 0; }
+  .devotion-label-pill {
+    display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px;
+    background: rgba(0,230,180,0.12); border: 1px solid rgba(0,230,180,0.35);
+    color: #00E6B4; border-radius: 50px; padding: 7px 18px;
+    font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+    width: fit-content;
+  }
+  .devotion-label-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: #00E6B4; flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(0,230,180,0.9); animation: pulseDot 1.5s ease-in-out infinite;
+  }
+  .devotion-title {
+    font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 48px;
+    line-height: 1.1; margin-bottom: 10px; letter-spacing: -0.02em;
+  }
+  .devotion-title-en {
+    background: linear-gradient(90deg, #00E6B4, #6366F1, #A855F7);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    display: block;
+  }
+  .devotion-title-ja { color: rgba(255,255,255,0.9); font-size: 20px; display: block; font-family: 'Noto Sans JP', sans-serif; font-weight: 700; margin-bottom: 28px; }
+  .devotion-schedule {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px;
+  }
+  .devotion-sched-item {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 16px 14px; text-align: center;
+    backdrop-filter: blur(12px);
+  }
+  .devotion-sched-icon { font-size: 22px; margin-bottom: 6px; display: block; }
+  .devotion-sched-val  { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; color: #fff; display: block; line-height: 1.2; }
+  .devotion-sched-lbl  { font-size: 10px; color: rgba(255,255,255,0.45); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+  .devotion-desc { font-size: 15px; color: rgba(255,255,255,0.72); line-height: 1.9; margin-bottom: 32px; }
+  .devotion-desc strong { color: #00E6B4; }
+  .devotion-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .devotion-zoom-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, #00E6B4, #00B4D8);
+    color: #000; border-radius: 50px; padding: 16px 36px;
+    font-size: 16px; font-weight: 800; text-decoration: none;
+    font-family: 'Outfit', sans-serif; white-space: nowrap;
+    box-shadow: 0 4px 28px rgba(0,230,180,0.45);
+    transition: transform .15s, box-shadow .15s;
+    animation: devotionGlow 2.5s ease-in-out infinite alternate;
+  }
+  .devotion-zoom-btn:hover { transform: translateY(-4px) scale(1.04); }
+  @keyframes devotionGlow {
+    0%   { box-shadow: 0 4px 28px rgba(0,230,180,0.4); }
+    100% { box-shadow: 0 8px 52px rgba(0,180,216,0.7), 0 0 60px rgba(0,230,180,0.2); }
+  }
+  .devotion-anyone {
+    font-size: 13px; color: rgba(255,255,255,0.55); font-weight: 700;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .devotion-anyone span { color: #FFD600; }
+
   /* Responsive */
   @media (max-width: 768px) {
     .japan-alert-text { font-size: 11.5px; }
@@ -887,8 +1016,16 @@
     .jp-stat { padding: 12px 16px; min-width: 76px; }
     .jp-stat-num { font-size: 22px; }
     .jp-photos-header { font-size: 16px; }
+    .devotion { padding: 80px 20px; }
+    .devotion-inner { grid-template-columns: 1fr; gap: 40px; }
+    .devotion-title { font-size: 36px; }
+    .devotion-schedule { grid-template-columns: repeat(3, 1fr); gap: 8px; }
   }
   @media (max-width: 480px) {
+    .devotion-schedule { grid-template-columns: 1fr 1fr; }
+    .devotion-title { font-size: 30px; }
+    .devotion-zoom-btn { width: 100%; justify-content: center; }
+    .devotion-badge-wrap { top: -12px; left: -8px; }
     .japan-alert { height: auto; min-height: 44px; padding: 8px 12px; }
     .japan-alert-text { white-space: normal; text-align: center; font-size: 11px; }
     body.has-banner .hero { padding-top: 160px; }
@@ -1258,6 +1395,55 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ── WEEKLY DEVOTION ── -->
+<section class="devotion" id="devotion">
+  <div class="devotion-blob devotion-blob-1"></div>
+  <div class="devotion-blob devotion-blob-2"></div>
+  <div class="devotion-blob devotion-blob-3"></div>
+  <div class="devotion-inner">
+
+    <!-- Visual card (no image file) -->
+    <div class="devotion-card">
+      <div class="devotion-card-top">
+        <span class="devotion-card-tag" data-i18n="devotion-card-tag">BILINGUAL WEEKLY DEVOTION</span>
+      </div>
+      <div class="devotion-card-day" data-i18n="devotion-card-day">Every Monday</div>
+      <div class="devotion-card-time">8:00<span class="devotion-card-unit">PM</span> – 8:30<span class="devotion-card-unit">PM</span></div>
+      <div class="devotion-card-pst">PST — Los Angeles, CA (アメリカ西海岸時間)</div>
+      <div class="devotion-card-divider"></div>
+      <div class="devotion-card-host">
+        <span class="devotion-card-host-label" data-i18n="devotion-card-with">WITH</span>
+        <span class="devotion-card-host-name">Pastor Sho &amp; Wings Leaders</span>
+      </div>
+      <div class="devotion-card-badges">
+        <span class="devotion-badge devotion-badge-free">🎉 FREE</span>
+        <span class="devotion-badge devotion-badge-bi">🌏 EN / JA</span>
+        <span class="devotion-badge devotion-badge-zoom">💻 Zoom</span>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="devotion-content">
+      <div class="devotion-label-pill">
+        <span class="devotion-label-dot"></span>
+        <span data-i18n="devotion-label">毎週開催 ・ ウィークリーデボーション</span>
+      </div>
+      <h2 class="devotion-title">
+        <span class="devotion-title-en" data-i18n="devotion-title-en">Join Every Monday!</span>
+        <span class="devotion-title-ja" data-i18n="devotion-title-ja">毎週月曜日、一緒にみことばを学ぼう！🙌</span>
+      </h2>
+      <p class="devotion-desc" data-i18n="devotion-desc">Pastor Sho & Wingsリーダーたちと、<strong>たったの30分</strong>！<br>英語と日本語のバイリンガルで聖書のみことばを学び、一週間を力強くスタートしよう🔥<br>キリスト教初めての方も、信仰の深い方も、<strong>誰でも大歓迎！</strong><br>「Our Daily Bread」を使ったデボーションで、毎日の生活に神様のことばを。</p>
+      <div class="devotion-actions">
+        <a class="devotion-zoom-btn" href="https://us02web.zoom.us/j/82463233251" target="_blank" rel="noopener">
+          💻 <span data-i18n="devotion-btn">Zoomで参加する</span> →
+        </a>
+        <span class="devotion-anyone">✅ <span data-i18n="devotion-anyone">誰でも参加OK・完全無料</span></span>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1676,6 +1862,17 @@ var translations = {
     'jp-support-title': '💛 このミッションを一緒に支えてください！',
     'jp-support-body': 'Japan Mission Tripを実現するために、<strong>経済的なサポートを募っています</strong>。<br>あなたの献金が、Dunamis Wingsのメンバーを日本へ送り出し、<br>若者たちの心に神の愛を届けます。ぜひ、このミッションのパートナーになってください！🙏',
     'jp-donate-btn': '💛 ミッションを支援する',
+    'devotion-label': '毎週開催 ・ ウィークリーデボーション',
+    'devotion-title-en': 'Join Every Monday!',
+    'devotion-title-ja': '毎週月曜日、一緒にみことばを学ぼう！🙌',
+    'devotion-card-tag': 'BILINGUAL WEEKLY DEVOTION',
+    'devotion-card-day': 'Every Monday',
+    'devotion-card-with': 'WITH',
+    'devotion-sched-day': '毎週月曜日',
+    'devotion-sched-online': 'オンライン',
+    'devotion-desc': 'Pastor Sho & Wingsリーダーたちと、<strong>たったの30分</strong>！<br>英語と日本語のバイリンガルで聖書のみことばを学び、一週間を力強くスタートしよう🔥<br>キリスト教初めての方も、信仰の深い方も、<strong>誰でも大歓迎！</strong><br>「Our Daily Bread」を使ったデボーションで、毎日の生活に神様のことばを。',
+    'devotion-btn': 'Zoomで参加する',
+    'devotion-anyone': '誰でも参加OK・完全無料',
   },
   en: {
     'nav-about': 'About Us',
@@ -1788,6 +1985,17 @@ var translations = {
     'jp-support-title': '💛 Partner With Us on This Mission!',
     'jp-support-body': 'We are accepting <strong>financial support</strong> to make the Japan Mission Trip possible.<br>Your donation sends Dunamis Wings members to Japan to bring God\'s love<br>to the hearts of young people. Please become a partner in this mission! 🙏',
     'jp-donate-btn': '💛 Support This Mission',
+    'devotion-label': 'Weekly Event · Devotion',
+    'devotion-title-en': 'Join Every Monday!',
+    'devotion-title-ja': 'Dig into the Word every week 🙌',
+    'devotion-card-tag': 'BILINGUAL WEEKLY DEVOTION',
+    'devotion-card-day': 'Every Monday',
+    'devotion-card-with': 'WITH',
+    'devotion-sched-day': 'Every Monday',
+    'devotion-sched-online': 'Online',
+    'devotion-desc': 'Jump on Zoom with Pastor Sho &amp; Wings Leaders for <strong>just 30 minutes</strong>!<br>A fun bilingual (English &amp; Japanese) devotion to kick off your week with God\'s Word 🔥<br>Whether you\'re brand new to faith or have been walking with Jesus for years — <strong>everyone is welcome!</strong><br>We use &ldquo;Our Daily Bread&rdquo; to bring Scripture into everyday life.',
+    'devotion-btn': 'Join on Zoom',
+    'devotion-anyone': 'Open to everyone · Completely free',
   }
 };
 
