@@ -698,6 +698,7 @@
 
   /* Layout */
   .jp-inner { max-width: 1120px; margin: 0 auto; position: relative; z-index: 1; }
+  .jp-marquee-wrap + .jp-inner { margin-top: 60px; }
 
   /* Label */
   .jp-label {
@@ -1000,7 +1001,7 @@
     body.has-banner .hero { padding-top: 132px; }
     body.has-banner .mobile-nav { top: 108px; }
     .japan-mission { padding: 80px 20px; }
-    .jp-t1, .jp-t2 { font-size: 54px; }
+.jp-t1, .jp-t2 { font-size: 54px; }
     .jp-t2-flag { font-size: 44px; }
     .jp-t3 { font-size: 38px; }
     .jp-destinations { grid-template-columns: 1fr; }
@@ -1220,34 +1221,54 @@
   </div>
 
   <div class="jp-inner">
-    <div class="jp-label">
-      <span class="jp-label-dot"></span>
-      COMING JULY 2026
+    <div style="display:flex; gap:48px; align-items:flex-start;">
+      <div style="flex:1; min-width:0;">
+        <div class="jp-label">
+          <span class="jp-label-dot"></span>
+          COMING JULY 2026
+        </div>
+
+        <div class="jp-title-wrap">
+          <span class="jp-title jp-t1">JAPAN</span>
+          <span class="jp-title jp-t2">MISSION <span class="jp-t2-flag">🎌</span></span>
+          <span class="jp-title jp-t3">TRIP 2026</span>
+        </div>
+
+        <div class="jp-stats">
+          <div class="jp-stat"><span class="jp-stat-num">2</span><span class="jp-stat-label">CITIES</span></div>
+          <div class="jp-stat"><span class="jp-stat-num">2nd</span><span class="jp-stat-label">YEAR</span></div>
+          <div class="jp-stat"><span class="jp-stat-num">JULY</span><span class="jp-stat-label">2026</span></div>
+          <div class="jp-stat"><span class="jp-stat-num">🔥</span><span class="jp-stat-label">SUMMER</span></div>
+        </div>
+
+        <div class="jp-date-row">
+          <div class="jp-date-badge" data-i18n="jp-date-badge">✈️ 2026年7月 出発</div>
+          <span class="jp-cities">東京 🗼 &nbsp;＆&nbsp; 静岡 🗻</span>
+        </div>
+
+        <p class="jp-desc" data-i18n="jp-desc">
+          Dunamis Wingsのメンバーが、<strong>2年連続となる日本宣教旅行</strong>へ出発します！<br>
+          2025年に続いて今年も東京と静岡で人々と出会い、福音を分かち合い、<strong>一生忘れられない夏</strong>を一緒に作ります。<br>
+          信仰の力で国境を越える、最高の旅がここから始まります。🔥🕊️
+        </p>
+      </div>
+
+      <div style="flex:1; min-width:0;">
+        <img
+          src="uploads/Summer Mision/0df5cf76-ab58-430a-b8f2-03eee6266c2a.jpg"
+          alt="Summer Mission"
+          style="width:100%; border-radius:16px; display:block; box-shadow:0 0 24px rgba(120,40,255,0.3);"
+          loading="lazy"
+        >
+      </div>
     </div>
 
-    <div class="jp-title-wrap">
-      <span class="jp-title jp-t1">JAPAN</span>
-      <span class="jp-title jp-t2">MISSION <span class="jp-t2-flag">🎌</span></span>
-      <span class="jp-title jp-t3">TRIP 2026</span>
-    </div>
-
-    <div class="jp-stats">
-      <div class="jp-stat"><span class="jp-stat-num">2</span><span class="jp-stat-label">CITIES</span></div>
-      <div class="jp-stat"><span class="jp-stat-num">2nd</span><span class="jp-stat-label">YEAR</span></div>
-      <div class="jp-stat"><span class="jp-stat-num">JULY</span><span class="jp-stat-label">2026</span></div>
-      <div class="jp-stat"><span class="jp-stat-num">🔥</span><span class="jp-stat-label">SUMMER</span></div>
-    </div>
-
-    <div class="jp-date-row">
-      <div class="jp-date-badge" data-i18n="jp-date-badge">✈️ 2026年7月 出発</div>
-      <span class="jp-cities">東京 🗼 &nbsp;＆&nbsp; 静岡 🗻</span>
-    </div>
-
-    <p class="jp-desc" data-i18n="jp-desc">
-      Dunamis Wingsのメンバーが、<strong>2年連続となる日本宣教旅行</strong>へ出発します！<br>
-      2025年に続いて今年も東京と静岡で人々と出会い、福音を分かち合い、<strong>一生忘れられない夏</strong>を一緒に作ります。<br>
-      信仰の力で国境を越える、最高の旅がここから始まります。🔥🕊️
-    </p>
+    <video
+      src="uploads/JapanMissionTrip2025/wings summer camp.mp4"
+      controls
+      playsinline
+      style="width:100%; border-radius:16px; display:block; margin-top:40px; margin-bottom:40px; box-shadow:0 0 40px rgba(120,40,255,0.35);"
+    ></video>
 
     <div class="jp-destinations">
       <div class="jp-dest-card">
@@ -2011,6 +2032,7 @@ function setLang(lang) {
   document.documentElement.lang = lang;
   closeMenu();
 }
+
 </script>
 
 </body>
