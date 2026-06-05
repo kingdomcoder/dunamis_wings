@@ -2044,7 +2044,10 @@ function setLang(lang) {
       video.textTracks[i].mode = 'showing';
     }
   };
-  if (video.readyState >= 1) { enable(); } else { video.addEventListener('loadedmetadata', enable); }
+  enable();
+  video.textTracks.addEventListener('addtrack', function(e) { e.track.mode = 'showing'; });
+  video.addEventListener('loadedmetadata', enable);
+  video.addEventListener('play', enable);
 })();
 
 </script>
