@@ -699,6 +699,9 @@
   /* Layout */
   .jp-inner { max-width: 1120px; margin: 0 auto; position: relative; z-index: 1; }
   .jp-marquee-wrap + .jp-inner { margin-top: 60px; }
+  .jp-top-row { display: flex; gap: 48px; align-items: flex-start; }
+  .jp-top-left { flex: 1; min-width: 0; }
+  .jp-top-right { flex: 1; min-width: 0; }
 
   /* Label */
   .jp-label {
@@ -1013,8 +1016,10 @@
     .jp-marquee-wrap { margin: 40px -20px 0; }
     .jp-photos-section { margin: 52px -20px 48px; }
     .jp-photo-item { width: 220px; height: 158px; }
-    .jp-stats { gap: 10px; }
-    .jp-stat { padding: 12px 16px; min-width: 76px; }
+    .jp-top-row { flex-direction: column; gap: 24px; }
+    .jp-top-right { width: 100%; }
+    .jp-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .jp-stat { padding: 12px 16px; min-width: 0; width: 100%; box-sizing: border-box; }
     .jp-stat-num { font-size: 22px; }
     .jp-photos-header { font-size: 16px; }
     .devotion { padding: 80px 20px; }
@@ -1221,8 +1226,8 @@
   </div>
 
   <div class="jp-inner">
-    <div style="display:flex; gap:48px; align-items:flex-start;">
-      <div style="flex:1; min-width:0;">
+    <div class="jp-top-row">
+      <div class="jp-top-left">
         <div class="jp-label">
           <span class="jp-label-dot"></span>
           COMING JULY 2026
@@ -1253,7 +1258,7 @@
         </p>
       </div>
 
-      <div style="flex:1; min-width:0;">
+      <div class="jp-top-right">
         <img
           src="uploads/Summer Mision/0df5cf76-ab58-430a-b8f2-03eee6266c2a.jpg"
           alt="Summer Mission"
